@@ -17,68 +17,14 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import Button from '@mui/material/Button';
 
 
-const Personalinfo = ()=>{
-    const [info, setInfo] = React.useState({
-        fname: '',
-        lname: '',
-        sex: '0',
-        address:'',
-        phone: '',
-        birthdate:new Date(''),
-        email:'',
-        bloodType:''  
-    })
+const Personalinfo = ({info, setInfo,error})=>{
+    
 
-    const [fnameEr,setfnameEr] =useState(false);
-    const [lnameEr,setlnameEr] =useState(false);
-    const [birthdateEr,setbirthdateEr] =useState(false);
-    const [addressEr,setaddressEr] =useState(false);
-    const [phoneEr,setphoneEr] =useState(false);
-    const [emailEr,setemailEr] =useState(false);
-    const [bloodTypeEr,setbloodTypeEr] =useState(false);
-    const handleSubmit = (e)=>{
-        e.preventDefault()
-        setfnameEr(false)
-        setlnameEr(false)
-        setaddressEr(false)
-        setemailEr(false)
-        setphoneEr(false)
-        setbirthdateEr(false)
-        setbloodTypeEr(false)
-        if(info.fname== '')
-        {
-            setfnameEr(true)
-        }
-        if(info.lname=='')
-        {
-            setlnameEr(true)
-        }
-        if(info.address=='')
-        {
-            setaddressEr(true)
-        }
-        if(info.email=='')
-        {
-            setemailEr(true)
-        }
-        if(info.phone=='')
-        {
-            setphoneEr(true)
-        }
-        if(info.birthdate==null)
-        {
-            setbirthdateEr(true)
-        }
-        if(info.bloodType=='')
-        {
-           setbloodTypeEr(true)
-        }
-    }
+
     return (
         <>
-        
+          
       
-        <form noValidate autoComplete="off" onSubmit={handleSubmit}>
             <Box
                 component="form"
                 sx={{
@@ -89,12 +35,14 @@ const Personalinfo = ()=>{
                 noValidate
                 autoComplete="off"
                 >
+                    <h1 style={{textAlign:"center",marginBottom:"60px",height:"50px",color:"rgb(79, 78, 78,0.9", backgroundColor:"rgb(143, 199, 255,0.2)"}}>Information personnelles</h1>
                 <Box sx={{
                     display:'flex',
                     flexDirection:'row',
                     justifyContent:'space-between',
                     '&> :not(style)' :{width:'45%'}
                 }}>
+                    
                     <TextField 
                         id="nom" 
                         defaultValue={info.lname}
@@ -102,9 +50,12 @@ const Personalinfo = ()=>{
                         variant="standard" 
                         onChange={(e)=> setInfo({...info, lname:e.target.value})}
                         required
-                        error={fnameEr}
+                        
+                        error={error.lname && typeof(error) != "undefined" }
+                        helperText={error.lname && typeof(error) != "undefined" ? error.lname :' '}
                     />
                     <br/>
+                    
                     <TextField 
                         id="prenom" 
                         defaultValue={info.fname}
@@ -112,15 +63,31 @@ const Personalinfo = ()=>{
                         variant="standard" 
                         onChange={(e)=> setInfo({...info, fname:e.target.value})}
                         required
-                        error={lnameEr}
+                        error={error.fname && typeof(error) != "undefined"}
+                        helperText={error.fname && typeof(error) != "undefined" ? error.fname : ' '}
                     />
                 </Box>
                
                 <FormControl component="fieldset">
-                <FormLabel component="legend">Sexe</FormLabel>
-                    <RadioGroup  defaultValue="male" row aria-label="gender" name="row-radio-buttons-group">
-                    <FormControlLabel  value="male" control={<Radio />} label="Homme" />
-                    <FormControlLabel value="female" control={<Radio />} label="Femme" />
+                <FormLabel component="legend"
+                  error={error.sex && typeof(error) != "undefined"}
+                  helperText={error.sex && typeof(error) != "undefined" ? error.sex: ' '}
+                  
+                  >Sexe</FormLabel>
+                    <RadioGroup row aria-label="gender" 
+                     
+                     onChange={e => {setInfo({...info, sex:e.target.value })}} 
+                     name="row-radio-buttons-group"
+                     defaultValue={info.sex}
+                     error={true}
+                     value={info.sex}
+                     >
+                    <FormControlLabel
+                     value="man" 
+                      control={<Radio />} 
+                      label="Homme" 
+                     />
+                    <FormControlLabel    value="woman" control={<Radio />} label="Femme" />
                     </RadioGroup>
                 </FormControl>
                 <FormGroup >
@@ -133,8 +100,12 @@ const Personalinfo = ()=>{
                             inputFormat="dd/MM/yyyy"
                             value={info.birthdate}
                             onChange={(e)=> setInfo({...info,birthdate:new Date(e)})}
-                        
-                            renderInput={(params) => <TextField  label="Date de naissance" {...params} required error={birthdateEr} />}
+                            defaultValue={info.birthdate}
+                            renderInput={(params) => <TextField  label="Date de naissance" {...params} 
+                            required 
+                            error={error.birthdate && typeof(error) != "undefined"}
+                            helperText={error.birthdate && typeof(error) != "undefined" ? error.birthdate : ' '}
+                            />}
                             />
               
                 </LocalizationProvider>
@@ -147,9 +118,10 @@ const Personalinfo = ()=>{
                         id="demo-simple-select-standard"
                         onChange={e => setInfo({...info,address:e.target.value})}
                         label="Adresse"
-                        defaultValue=""
-                        required
-                        error={addressEr}
+                        defaultValue={info.address}
+                        error={error.address && typeof(error) != "undefined"}
+                        helperText={error.address && typeof(error) != "undefined" ? "address required": ' '}
+                    
                     />
                    
                
@@ -160,10 +132,11 @@ const Personalinfo = ()=>{
                         id="demo-simple-select-standard"
                         onChange={e => setInfo({...info,email:e.target.value})}
                         label="Email"
-                        defaultValue=""
+                        defaultValue={info.email}
                         type="mail"
-                        required
-                        error={emailEr}
+                        error={error.email && typeof(error) != "undefined"}
+                        helperText={error.email && typeof(error) != "undefined" ? error.email: ' '}
+
                         
                     />
                    
@@ -174,9 +147,11 @@ const Personalinfo = ()=>{
                     <TextField
                         label="Numéro de téléphone"
                         type="tel"
+                        defaultValue={info.phone}
                         onChange={e => setInfo({...info,phone:e.target.value.replace(/[^0-9]/g, '')})}
-                        required
-                        error={phoneEr}
+                        error={error.phone && typeof(error) != "undefined"}
+                        helperText={error.phone && typeof(error) != "undefined" ? error.phone: ' '}
+                        
                     />
                      
                      <FormControl >
@@ -185,9 +160,11 @@ const Personalinfo = ()=>{
                       
                         id="bloodtype"
                         value={info.bloodType}
+                        defaultValue={info.bloodType}
                         label="Groupe sanguin"
                         onChange={e => setInfo({...info,bloodType:e.target.value})}
-                        error={bloodTypeEr}
+                        error={error.bloodType && typeof(error) != "undefined"}
+                        helperText={error.bloodType && typeof(error) != "undefined" ? error.bloodType: 'hi '}
                         >
                         <MenuItem value='A+'>A+</MenuItem>
                         <MenuItem value='A-'>A-</MenuItem>
@@ -201,20 +178,11 @@ const Personalinfo = ()=>{
                      </Select>
                      </FormControl>
                  
-                 <Button
-                    variant="contained" 
-                    type="submit"
-                    onClick={handleSubmit}
-                  
-                    
-
-                    >
-                        Submit
-               </Button>
+             
 
                
             </Box>
-            </form>
+            
         </>
     )
      
