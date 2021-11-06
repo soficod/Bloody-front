@@ -1,22 +1,26 @@
 import * as React from 'react';
 import Personalinfo from './Personalinfo';
 import Box from '@mui/material/Box';
-import { AssignmentReturnedTwoTone } from '@mui/icons-material';
 import Questions from './Questions';
 import Maladies from './Maladies';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
 import {bg1} from './background';
 import axios from 'axios'
 import ResultsPage from './ResultsPage';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import DashBoard from './DashBoard'
+import Form from './Form';
+import {
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
 
 const BloodyForum = ()=>{
     
     const steps = ["étape 1","étape 2","étape 3"]
-
+    
     const goNext = () => 
     {
       switch(activeStep)
@@ -180,12 +184,15 @@ const BloodyForum = ()=>{
             maladies={maladies} 
             setMaladies={setMaladies}
           />
-        case 3: return <ResultsPage info={info} result={result} person={person}/>
+        case 3: return <ResultsPage info={info} result={result} setInfo={setInfo} setActivestep={setActivestep}  setMaladies={setMaladies} person={person}/>
    
         
       }
   
     }
+
+    const [selectedTab, setSelectedTab] = React.useState(1) 
+
     return(
     <div style={{
      
@@ -209,59 +216,46 @@ const BloodyForum = ()=>{
           backgroundColor: "white"
           
         }}>
-        <Box sx={{ width: '100%', m:6 }}>
-          
-           <Stepper activeStep={activeStep} alternativeLabel>
+        <Tabs  
+             
+              value={selectedTab}
+              onChange={(e, newVal) => setSelectedTab(newVal)}
+              centered
+        >
+            <Tab 
+              label="Active" 
+              component={Link}
+              to={"/"}
+             
+            />
+            <Tab 
+              label="DashBoard"
+              component={Link}
+              to={"/dashboard"}
+            />
+        </Tabs>
 
-            {steps.map((label) => (
+        <Routes>
+          <Route 
+            exact path="/"
+            element={
+              <Form
+                steps={steps}
+                activeStep={activeStep}
+                renderSwitch={renderSwitch}
+                goNext={goNext}
+                setActivestep={setActivestep}
+              />
+            }
+          />
+          <Route 
+            path="/dashboard"
+            element={
               
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-
-        </Box>
-       
-          {
-            renderSwitch(activeStep)
-          }
-          <Box sx={{width:'100%',display: 'flex', flexDirection: 'row-reverse', pt: 2 ,justifyContent:'space-between'}}>
-           
-         {
-          (activeStep==steps.length)?
-          <Button
-           variant="contained" 
-           disabled={activeStep === 3}
-           sx={{ m: 5 }}
-           onClick={()=>{setActivestep((activeStep)=> activeStep+1)}}
-
-           >
-             Next</Button>
-             :
-             <Button
-             variant="contained" 
-             sx={{ m: 5 }}
-             onClick={()=>{
-               goNext();
-             }}
-  
-             >
-               Next </Button>
-         }
-          
-
-        
-          
-          <Button
-           variant="contained"
-            sx={{ m: 5 }}
-            disabled={activeStep === 0}
-            onClick={()=>{setActivestep((activeStep)=> activeStep-1)}}
-            >Previous </Button>
-          </Box>
-          
-
+            <DashBoard/>
+            }
+          />
+        </Routes>
      </Box>
     </div>
     )

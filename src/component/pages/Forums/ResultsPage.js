@@ -17,10 +17,11 @@ import DoneIcon from '@mui/icons-material/Done';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 
 
-const ResultsPage = ({info,result,person})=>{
+const ResultsPage = ({info,result,person,setInfo,setActivestep, setMaladies})=>{
 
     const handleClick=()=>{
         axios.post('http://127.0.0.1:8000/api/people/'+person.id+'/donate')
@@ -30,8 +31,10 @@ const ResultsPage = ({info,result,person})=>{
                 icon:"success",
                 showConfirmButton:true,
                 confirmButtonText:"OK",
-                confirmButtonColor:"#1976D2"
+                confirmButtonColor:"#1976D2",
+                
               })
+              
         })
         .catch(err=>{
             Swal.fire({
@@ -41,10 +44,39 @@ const ResultsPage = ({info,result,person})=>{
                 confirmButtonText:"OK",
                 confirmButtonColor:"#1976D2"
               })
-        })
-    
-       
+        }) 
     }
+    const handleQuitter=()=>{
+        
+        Swal.fire({
+            title:"Voulez-vous vraiment quitter cette page ",
+            icon:"question",
+            showDenyButton: true,
+            showCancelButton: true,
+            showConfirmButton:false,
+           cancelButtonText:"Annuler",
+            denyButtonText:"Quitter"
+          })
+          .then((res) => {
+              if(res.isDenied)  {
+                setInfo({
+                    fname:'',
+                    lname: '',
+                    sex: '',
+                    address:'',
+                    phone: '',
+                    birthdate:new Date(''),
+                    email:'',
+                    bloodType:'',
+                    answers:[]
+                  })
+                  setActivestep(0);
+                  setMaladies({});
+              } 
+            
+           
+          })
+ }
 
     console.log(result);
     return(
@@ -56,7 +88,7 @@ const ResultsPage = ({info,result,person})=>{
                 flexDirection:'column',
                
         }}>
-            {JSON.stringify(person)}
+           
             <h1 style={{margin:"auto",marginBottom:"60px",width:"90%",textAlign:"center",height:"50px",color:"rgb(79, 78, 78,0.9)", backgroundColor:"rgb(143, 199, 255,0.2)"}}>Resultats</h1>
             
             <Box sx={{
@@ -191,21 +223,60 @@ const ResultsPage = ({info,result,person})=>{
                 }
              
             </Box>
+            {
+                   typeof(result) != "undefined" && result.length ==0 || typeof(result) != "undefined" && (!result.filter(r => r.result === "cid").length > 0) ?
+                    <Box sx={{display:"flex",flexDirection:"row"}}>
+                        <Button sx={{
+                            minWidth:"100px",
+                            textAlign:"center",
+                            margin:"50px auto",
+                            fontSize:"1.2em"
 
-            <Button sx={{
+                        }} 
+                        variant="outlined" 
+                        startIcon={<DoneAllIcon />}
+                        onClick={handleClick}
+                        >
+                        
+                        Prise de sang Effectuée
+                        </Button>
+                        <Button sx={{
                         minWidth:"100px",
                         textAlign:"center",
                         margin:"50px auto",
                         fontSize:"1.2em"
 
                     }} 
-                    variant="outlined" 
-                    startIcon={<DoneAllIcon />}
-                    onClick={handleClick}
+                    color="error"
+                    variant="contained"
+                    startIcon={<ExitToAppIcon />}
+                    onClick={handleQuitter}
+                    
                     >
                     
-                 Prise de sang Effectuée
-            </Button>
+                    Quitter
+                    </Button>
+                   </Box> 
+                :
+                <Button sx={{
+                    minWidth:"100px",
+                    textAlign:"center",
+                    margin:"50px auto",
+                    fontSize:"1.2em"
+
+                }} 
+                color="error"
+                variant="contained" 
+                startIcon={<ExitToAppIcon  />}
+                onClick={handleQuitter}
+                
+                >
+                
+                 Quitter
+                </Button>
+
+            }
+            
             </Box>
         
         </>

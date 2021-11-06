@@ -7,7 +7,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 const Maladies = ({parents,maladies,setMaladies})=>{
 
-const [checkedState,setCheckedState]=React.useState(new Array(parents.length).fill(false));
+
 
 return(
     <Box sx={{
@@ -38,12 +38,6 @@ return(
                                     defaultChecked={typeof(maladies[parent.id]) != "undefined"}
                                     checked={typeof(maladies[parent.id]) != "undefined"}
                                     onChange={(e) => {
-                                        const updatedCheckedState = checkedState.map((item, index) =>
-                                             
-                                            index === ((parent.id )-1) ? !item : item
-                                            );
-                                            setCheckedState(updatedCheckedState);
-                                            console.log(checkedState)
                                           
                                         if(e.target.checked)
                                         {
