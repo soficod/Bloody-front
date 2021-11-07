@@ -4,13 +4,15 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Form = ({
     activeStep,
     renderSwitch,
     steps,
     goNext,
-    setActivestep
+    setActivestep,
+    loading
 }) => 
 {
     return(
@@ -28,42 +30,131 @@ const Form = ({
 
             </Box>
 
+            <Box sx={{width:'100%',display: 'flex', flexDirection: 'row-reverse', pt:0 ,justifyContent:'space-between'}}>
+
+                {
+                (activeStep==steps.length)?
+                <Button
+                    variant="contained" 
+                    disabled={activeStep === 4}
+                    sx={{ display:"none",m: 5 }}
+                    onClick={()=>{setActivestep((activeStep)=> activeStep+1)}}
+
+                >
+                Suivant</Button>
+                :
+                (activeStep==steps.length -1)?
+                <>
+                {
+                   !loading ?
+                    <Button
+                        variant="contained" 
+                        sx={{ m: 5 }}
+                        onClick={()=>{setActivestep((activeStep)=> activeStep+1)}}
+
+                    >
+                    Sauvgarder</Button>
+                    :
+                    <CircularProgress />
+
+
+                }
+                </>
+                :
+                <Button
+                    variant="contained" 
+                    sx={{ m: 5 }}
+                    onClick={()=>{
+                        goNext();
+                }}
+
+                >
+                   Suivant
+                </Button>
+                }
+            
+                {
+                    (activeStep==steps.length)? 
+                    <Button
+                    variant="contained"
+                    sx={{ display:"none",m: 5 }}
+                    disabled={activeStep === 4}
+                    onClick={()=>{setActivestep((activeStep)=> activeStep-1)}}
+                    >Précédent </Button>
+                    :
+                    <Button
+                    variant="contained"
+                    sx={{ m: 5 }}
+                    disabled={activeStep === 0}
+                    onClick={()=>{setActivestep((activeStep)=> activeStep-1)}}
+                    >Précédent </Button>
+                }
+            </Box>
             {
             renderSwitch(activeStep)
             }
             <Box sx={{width:'100%',display: 'flex', flexDirection: 'row-reverse', pt: 2 ,justifyContent:'space-between'}}>
 
             {
-            (activeStep==steps.length)?
-            <Button
-            variant="contained" 
-            disabled={activeStep === 3}
-            sx={{ m: 5 }}
-            onClick={()=>{setActivestep((activeStep)=> activeStep+1)}}
+                (activeStep==steps.length)?
+                <Button
+                variant="contained" 
+                disabled={activeStep === 4}
+                sx={{display:"none", m: 5 }}
+                onClick={()=>{setActivestep((activeStep)=> activeStep+1)}}
 
-            >
-            Next</Button>
-            :
-            <Button
-            variant="contained" 
-            sx={{ m: 5 }}
-            onClick={()=>{
-                goNext();
-            }}
+                >
+                Suivant</Button>
+                :
+                (activeStep==steps.length -1)?
+                <>
+                {
+                    !loading ?
+                    <Button
+                        variant="contained" 
+                        sx={{ m: 5 }}
+                        onClick={()=>{setActivestep((activeStep)=> activeStep+1)}}
 
-            >
-                Next </Button>
+                    >
+                    Sauvgarder</Button>
+                    :
+                    <CircularProgress />
+
+
+                }
+                </>
+                :
+                <Button
+                variant="contained" 
+                sx={{ m: 5 }}
+                onClick={()=>{
+                    goNext();
+                }}
+
+                >
+                    Suivant </Button>
             }
 
 
 
 
-            <Button
-            variant="contained"
-            sx={{ m: 5 }}
-            disabled={activeStep === 0}
-            onClick={()=>{setActivestep((activeStep)=> activeStep-1)}}
-            >Previous </Button>
+            {
+                (activeStep==steps.length)? 
+                <Button
+                variant="contained"
+                sx={{ display:"none",m: 5 }}
+                disabled={activeStep === 4}
+                onClick={()=>{setActivestep((activeStep)=> activeStep-1)}}
+                >Précédent </Button>
+                :
+                <Button
+                variant="contained"
+                sx={{ m: 5 }}
+                disabled={activeStep === 0}
+                onClick={()=>{setActivestep((activeStep)=> activeStep-1)}}
+                >Précédent </Button>
+            }
+            
         </Box>
         </>
     )

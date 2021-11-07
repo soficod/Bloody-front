@@ -11,6 +11,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import DashBoard from './DashBoard'
 import Form from './Form';
+import Medicament from './Medicament';
 import {
   Routes,
   Route,
@@ -19,7 +20,7 @@ import {
 
 const BloodyForum = ()=>{
     
-    const steps = ["étape 1","étape 2","étape 3"]
+    const steps = ["Informations","Questionnaires","Maladies","Médicaments"]
     
     const goNext = () => 
     {
@@ -83,6 +84,7 @@ const BloodyForum = ()=>{
                 })
                 return;
               }
+           
               axios.get('http://127.0.0.1:8000/api/points')
               .then(res=>
               {
@@ -93,13 +95,19 @@ const BloodyForum = ()=>{
               })
               .catch(err =>console.log(err))
             })
-            .catch(console.log)
+            .catch(err=>{
+              console.log(err.response.data)
+             
+              if(err.response.status == 422)
+              {
+              
+                  setError({...error,donationType:err.response.data.errors.donationType})
+              }
 
-          /**/
-          
-          break;
-        }
-        case 2:{
+            })
+        break;
+      }
+        case 3:{
           
           const arr_maladies = [];
           console.log(maladies)
@@ -118,10 +126,12 @@ const BloodyForum = ()=>{
           //had la variable locale c'est bach neba3toha f axios
           setInfo({...info, answers:arr_maladies});
           //dork le state yetbedel lwa9t li i7ab we don't care
-          //idk if fhamtini :'( yeah c bon      
+          //idk if fhamtini :'( yeah c bon  
+          setLoading(true)    
           axios.post('http://127.0.0.1:8000/api/people/check',local_info)
           .then(res=>
           {
+            setLoading(false)
             setResult(res.data.data.results)
             setPerson(res.data.data.person)
             console.log(result)
@@ -132,12 +142,14 @@ const BloodyForum = ()=>{
           setActivestep((activeStep)=> activeStep+1);
           break;
         }
-        case 3:
+        case 2:
    
           setActivestep((activeStep)=> activeStep+1);
-
+    
       }
     }
+    const [value,setValue]= React.useState({});
+    const [loading,setLoading]=React.useState(false);
     const [postData,setPostData]= React.useState([]);
     const [activeStep,setActivestep]=React.useState(0);
     const [info, setInfo] = React.useState({
@@ -162,36 +174,42 @@ const BloodyForum = ()=>{
       email:'',
       phone:'',
       birthdate:'',
-      bloodType:''  
+      bloodType:'',
+  
     })
   
     
     const[result,setResult]=React.useState([])
     const [parents,setParents]= React.useState([])
-
+   
     const [person,setPerson] =React.useState({});
-    const [checked,setChecked]=React.useState([false,false]);
-
+    const [checked,setChecked]=React.useState(false);
+    const [valueChecked,setValueChecked] = React.useState(false);
     const renderSwitch =(steps)=>{
       switch(steps){
         case 0:
           return <Personalinfo error={error} info={info} setInfo={setInfo} />
         case 1:
-          return <Questions checked={checked} setChecked={setChecked} answers={info} setAnswers={setInfo} />
+          return <Questions  value={value} setValue={setValue} valueChecked ={valueChecked } setValueChecked={setValueChecked} setChecked={setChecked} setError={setError} error={error} checked={checked} setChecked={setChecked} answers={info} setAnswers={setInfo} />
         case 2:
           return <Maladies 
             parents={parents}
             maladies={maladies} 
             setMaladies={setMaladies}
+           
           />
-        case 3: return <ResultsPage info={info} result={result} setInfo={setInfo} setActivestep={setActivestep}  setMaladies={setMaladies} person={person}/>
-   
+        
+        case 3:return <Medicament 
+            parents={parents}
+            maladies={maladies} 
+            setMaladies={setMaladies}/>
+        case 4: return <ResultsPage info={info} result={result} setInfo={setInfo} setActivestep={setActivestep}  setMaladies={setMaladies} person={person}/>
         
       }
   
     }
 
-    const [selectedTab, setSelectedTab] = React.useState(1) 
+    const [selectedTab, setSelectedTab] = React.useState(0) 
 
     return(
     <div style={{
@@ -216,6 +234,7 @@ const BloodyForum = ()=>{
           backgroundColor: "white"
           
         }}>
+         
         <Tabs  
              
               value={selectedTab}
@@ -223,7 +242,7 @@ const BloodyForum = ()=>{
               centered
         >
             <Tab 
-              label="Active" 
+              label="formulaire" 
               component={Link}
               to={"/"}
              
@@ -245,6 +264,7 @@ const BloodyForum = ()=>{
                 renderSwitch={renderSwitch}
                 goNext={goNext}
                 setActivestep={setActivestep}
+                loading={loading}
               />
             }
           />

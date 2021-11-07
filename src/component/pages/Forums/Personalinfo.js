@@ -35,6 +35,7 @@ const Personalinfo = ({info, setInfo,error})=>{
                 noValidate
                 autoComplete="off"
                 >
+                  
                     <h1 style={{textAlign:"center",marginBottom:"60px",height:"50px",color:"rgb(79, 78, 78,0.9", backgroundColor:"rgb(143, 199, 255,0.2)"}}>Information personnelles</h1>
                 <Box sx={{
                     display:'flex',
@@ -81,6 +82,7 @@ const Personalinfo = ({info, setInfo,error})=>{
                      defaultValue={info.sex}
                      error={true}
                      value={info.sex}
+                     helperText={error.sex && typeof(error) != "undefined" ? error.sex: ' '}
                      >
                     <FormControlLabel
                      value="man" 
@@ -89,6 +91,12 @@ const Personalinfo = ({info, setInfo,error})=>{
                      />
                     <FormControlLabel    value="woman" control={<Radio />} label="Femme" />
                     </RadioGroup>
+                    {
+                        error.sex && typeof(error) != "undefined"?
+                        <p style={{letterSpacing:"0.03333em",fontWeight:"400",fontSize:"0.75rem",fontFamily: '"Roboto","Helvetica","Arial",sans-serif',paddingBottom:"10px",color:"rgb(216,47,47)"}}>{error.sex}</p>
+                        :
+                        ""
+                    }
                 </FormControl>
                 <FormGroup >
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -96,7 +104,7 @@ const Personalinfo = ({info, setInfo,error})=>{
                 <InputLabel id="bday">Date de naissance</InputLabel>          
                     <DesktopDatePicker
                             
-                            
+                            sx={{'&>':{marginRight:"0px"}}}
                             inputFormat="dd/MM/yyyy"
                             value={info.birthdate}
                             onChange={(e)=> setInfo({...info,birthdate:new Date(e)})}
@@ -176,6 +184,12 @@ const Personalinfo = ({info, setInfo,error})=>{
                         <MenuItem value='AB-'>AB-</MenuItem>
 
                      </Select>
+                     {
+                        error.bloodType && typeof(error) != "undefined"?
+                        <p style={{lineHeight: "1.66",letterSpacing:"0.03333em",fontWeight:"400",fontSize:"0.75rem",fontFamily: '"Roboto","Helvetica","Arial",sans-serif',paddingBottom:"10px",color:"rgb(216,47,47)"}}>{error.bloodType}</p>
+                        :
+                        ""
+                    }
                      </FormControl>
                  
              

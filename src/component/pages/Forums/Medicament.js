@@ -6,7 +6,7 @@ import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
-const Maladies = ({parents,maladies,setMaladies})=>{
+const Medicament = ({parents,maladies,setMaladies})=>{
 
 const [localMaladie,setLocalMaladie] = React.useState([]);
 const [search,setSearch] = React.useState("");
@@ -15,7 +15,7 @@ const [search,setSearch] = React.useState("");
         if(typeof(parents) != "undefined")
         {
             setLocalMaladie(parents.filter(m=>{
-                return m.id != 26 
+                return m.id == 26 
             }))
         }
     },[parents])
@@ -31,6 +31,7 @@ return(
         ml:5,
         '&> :not(style)' :{width:'100%'}
     }}>
+       
             <h1 style={{textAlign:"center",marginBottom:"60px",height:"50px",color:"rgb(79, 78, 78,0.9", backgroundColor:"rgb(143, 199, 255,0.2)"}}>Maladies</h1>
         <Box sx={{
             my:3
@@ -128,4 +129,4 @@ return(
 )
 
 }
-export default Maladies;
+export default Medicament;
