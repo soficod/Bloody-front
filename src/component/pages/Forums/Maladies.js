@@ -36,12 +36,12 @@ return(
             my:3
         }}>
             <Paper sx={{marginBottom:"50px"}}>
-            <IconButton type="submit" sx={{ p: '20px' }} aria-label="search">
-                <SearchIcon />
+            <IconButton type="submit" sx={{pl:0, p: '20px' }} aria-label="search">
+                <SearchIcon sx={{color:"#1976D2"}} />
             </IconButton>
             <InputBase
                 onChange={e=>setSearch(e.target.value)}
-                sx={{width:"70%", ml:1 , flex: 1 }}
+                sx={{width:"70%", ml:0 , flex: 1 }}
                 placeholder="Chercher Maladies"
                 inputProps={{ 'aria-label': 'search google maps' }}
             />
