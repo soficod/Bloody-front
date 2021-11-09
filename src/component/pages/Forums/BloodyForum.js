@@ -51,10 +51,11 @@ const BloodyForum = ()=>{
           break;
         }
         case 1: {
-          setLoading(true);
+        
           axios.post('http://127.0.0.1:8000/api/people/check-donation', info)
           .then(res=>
             {
+              
               console.log(res);
               if(!res.data.data.result)
               {
@@ -210,7 +211,7 @@ const BloodyForum = ()=>{
             parents={parents}
             maladies={maladies} 
             setMaladies={setMaladies}/>
-        case 4: return <ResultsPage info={info} setError={setError} result={result} setInfo={setInfo} setActivestep={setActivestep}  setMaladies={setMaladies} person={person}/>
+        case 4: return <ResultsPage setChecked={setChecked}setValue={setValue} info={info} setError={setError} result={result} setInfo={setInfo} setActivestep={setActivestep}  setMaladies={setMaladies} person={person}/>
         
       }
   

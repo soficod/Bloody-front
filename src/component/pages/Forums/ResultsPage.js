@@ -21,7 +21,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 
 
-const ResultsPage = ({info,result,person,setInfo,setActivestep, setMaladies,setError})=>{
+const ResultsPage = ({info,setChecked,result,person,setInfo,setActivestep, setMaladies,setError,setValue})=>{
 
     const handleClick=()=>{
         axios.post('http://127.0.0.1:8000/api/people/'+person.id+'/donate')
@@ -83,6 +83,8 @@ const ResultsPage = ({info,result,person,setInfo,setActivestep, setMaladies,setE
                     bloodType:'',
                 
                   });
+                  setValue({});
+                  setChecked(false);
               } 
             
            

@@ -43,24 +43,7 @@ const Form = ({
                 >
                 Suivant</Button>
                 :
-                (activeStep==1)?
-                <>
-                {
-                    !loading ?
-                    <Button
-                        variant="contained" 
-                        sx={{ m: 5 }}
-                        onClick={()=>{goNext()}}
-
-                    >
-                    Suivant</Button>
-                    :
-                    <CircularProgress sx={{ m: 5 }}  />
-
-
-                }
-                </>
-                :
+               
                 (activeStep==steps.length -1)?
                 <>
                 {
@@ -124,24 +107,7 @@ const Form = ({
                 >
                 Suivant</Button>
                 :
-                (activeStep==1)?
-                <>
-                {
-                    !loading ?
-                    <Button
-                        variant="contained" 
-                        sx={{ m: 5 }}
-                        onClick={()=>{goNext()}}
-
-                    >
-                    Suivant</Button>
-                    :
-                    <CircularProgress sx={{ m: 5 }}  />
-
-
-                }
-                </>
-                :
+               
                 (activeStep==steps.length -1)?
                 <>
                 {

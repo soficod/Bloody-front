@@ -40,7 +40,7 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
             flexDirection:'column',
             
         }}>
- 
+            {JSON.stringify(checked)}
          <h1 style={{margin:"auto",marginBottom:"60px",width:"90%",textAlign:"center",height:"50px",color:"rgb(79, 78, 78,0.9", backgroundColor:"rgb(143, 199, 255,0.2)"}}>Questionnaire</h1>
          <Box 
             sx={{
@@ -55,7 +55,7 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
             }}>
                  <FormLabel component="legend"
                   error={!checked && error.donationType && typeof(error) != "undefined"}
-                  helperText={error.donationType&& typeof(error) != "undefined" ? error.donationType: ' '}
+                  helperText={error.donationType && typeof(error) != "undefined" ? error.donationType: ' '}
                   sx={{color:"black",fontFamily: `'Source Sans Pro', sans-serif`,fontSize:'1.5em',backgroundColor:'rgb(154, 196, 237,0.2)',padding:"20px"}}
                     >
                    <p >Type de don</p>
