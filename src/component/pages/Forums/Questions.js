@@ -157,7 +157,7 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                                         <DesktopDatePicker
                                                 
                                                 label="Date"
-                                                inputFormat="MM/dd/yyyy"
+                                                inputFormat="dd/MM/yyyy"
 
                                                 value={typeof(answers.last_donation) != "undefined" ? answers.last_donation:null}
                                                 onChange={e=>{setAnswers({...answers,last_donation:new Date(e)})}}
