@@ -41,7 +41,7 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
             
         }}>
  
-         <h1 style={{margin:"auto",marginBottom:"60px",width:"90%",textAlign:"center",height:"50px",color:"rgb(79, 78, 78,0.9", backgroundColor:"rgb(143, 199, 255,0.2)"}}>Questionnaires</h1>
+         <h1 style={{margin:"auto",marginBottom:"60px",width:"90%",textAlign:"center",height:"50px",color:"rgb(79, 78, 78,0.9", backgroundColor:"rgb(143, 199, 255,0.2)"}}>Questionnaire</h1>
          <Box 
             sx={{
                 width:"80%",
@@ -56,9 +56,9 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                  <FormLabel component="legend"
                   error={!checked && error.donationType && typeof(error) != "undefined"}
                   helperText={error.donationType&& typeof(error) != "undefined" ? error.donationType: ' '}
-                  sx={{fontSize:'1.5em',backgroundColor:'rgb(154, 196, 237,0.2)',padding:"20px"}}
+                  sx={{color:"black",fontFamily: `'Source Sans Pro', sans-serif`,fontSize:'1.5em',backgroundColor:'rgb(154, 196, 237,0.2)',padding:"20px"}}
                     >
-                    Type de donnation
+                   <p >Type de don</p>
                 </FormLabel>
                
                <FormGroup sx={{pl:"30px"}}>
@@ -104,7 +104,7 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
             
 
             }}>
-               <p style={{fontSize:'1.5em',backgroundColor:'rgb(154, 196, 237,0.2)',padding:"20px"}}>Vous Sentez-vous en forme pour donner votre sang ?</p>
+               <p style={{fontSize:'1.5em',backgroundColor:'rgb(154, 196, 237,0.2)',padding:"20px"}}>Vous sentez-vous en forme pour donner votre sang ?</p>
                <FormGroup sx={{pl:"30px"}}>
                <RadioGroup
               
@@ -124,7 +124,7 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
             
 
             }}>
-                <p style={{fontSize:'1.5em',backgroundColor:'rgb(154, 196, 237,0.2)',padding:"20px"}}>Avez vous déjà donné votre sang ?</p>
+                <p style={{fontSize:'1.5em',backgroundColor:'rgb(154, 196, 237,0.2)',padding:"20px"}}>Avez-vous déjà donné votre sang ?</p>
                 <FormGroup sx={{pl:"30px"}}>
                     <RadioGroup
                             

@@ -21,7 +21,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 
 
-const ResultsPage = ({info,result,person,setInfo,setActivestep, setMaladies})=>{
+const ResultsPage = ({info,result,person,setInfo,setActivestep, setMaladies,setError})=>{
 
     const handleClick=()=>{
         axios.post('http://127.0.0.1:8000/api/people/'+person.id+'/donate')
@@ -72,13 +72,24 @@ const ResultsPage = ({info,result,person,setInfo,setActivestep, setMaladies})=>{
                   })
                   setActivestep(0);
                   setMaladies({});
+                  setError({
+                    fname:'',
+                    lname:'',
+                    sex: '',
+                    address:'',
+                    email:'',
+                    phone:'',
+                    birthdate:'',
+                    bloodType:'',
+                
+                  });
               } 
             
            
           })
  }
 
-    console.log(result);
+    console.log(person.id);
     return(
         <>
             

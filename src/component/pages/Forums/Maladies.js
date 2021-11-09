@@ -82,25 +82,39 @@ return(
                     </Box>
                     {
                         
-                        Object.keys(maladies).indexOf(""+parent.id) != -1 &&
+                        (search.length > 0  || Object.keys(maladies).indexOf(""+parent.id) != -1) &&
                         parent.children.filter(c=> c.title.toLowerCase().includes(search.toLowerCase())).map(child=>
                             <Box sx={{display:'flex',flexDirection:'column',m:3}}>
                                 <FormControlLabel 
                                     control={
                                         <Checkbox  
-                                            checked={maladies[parent.id].filter(c => c.id == child.id).length > 0}
-                                            defaultChecked={maladies[parent.id].filter(c => c.id == child.id).length > 0}
+                                            checked={typeof(maladies[parent.id]) != "undefined" && maladies[parent.id].filter(c => c.id == child.id).length > 0}
+                                            defaultChecked={typeof(maladies[parent.id]) != "undefined" && maladies[parent.id].filter(c => c.id == child.id).length > 0}
                                             onChange={(e) => {
                                                 if(e.target.checked)
                                                 {
-                                                    setMaladies({
-                                                        ...maladies, 
-                                                        [parent.id]: 
-                                                        [...maladies[parent.id], {
-                                                            id: child.id,
-                                                            value: true
-                                                        }]
-                                                    })
+                                                    if(typeof(maladies[parent.id]) != "undefined")
+                                                    {
+                                                        setMaladies({
+                                                            ...maladies, 
+                                                            [parent.id]: 
+                                                            [...maladies[parent.id], {
+                                                                id: child.id,
+                                                                value: true
+                                                            }]
+                                                        })
+                                                    }
+                                                    else 
+                                                    {
+                                                        setMaladies({
+                                                            ...maladies, 
+                                                            [parent.id]: 
+                                                            [{
+                                                                id: child.id,
+                                                                value: true
+                                                            }]
+                                                        })
+                                                    }
                                                 }
                                                 else 
                                                 {

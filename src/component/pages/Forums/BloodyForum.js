@@ -3,7 +3,7 @@ import Personalinfo from './Personalinfo';
 import Box from '@mui/material/Box';
 import Questions from './Questions';
 import Maladies from './Maladies';
-import {bg1} from './background';
+
 import axios from 'axios'
 import ResultsPage from './ResultsPage';
 import Swal from 'sweetalert2';

@@ -53,55 +53,39 @@ return(
                 return p.children.filter(c=> c.title.toLowerCase().includes(search.toLowerCase())).length>0
             }).map((parent, index_parent) => 
                 <>  
-                   
-                    <Box sx={{ borderBottom:"2px solid rgb(202, 227, 252,0.4)",pl:1,marginBottom:5,backgroundColor:"rgb(202, 227, 252,0.1)" ,paddingBottom:2,"&>":{fontSize:"1.4em"}}}>
-                        <FormControlLabel 
-                            key={index_parent}
-                            control={
-                                <Checkbox 
-                                    key={index_parent}
-                                    value='cardio' 
-                                    defaultChecked={typeof(maladies[parent.id]) != "undefined"}
-                                    checked={typeof(maladies[parent.id]) != "undefined"}
-                                    onChange={(e) => {
-                                          
-                                        if(e.target.checked)
-                                        {
-                                            setMaladies({...maladies, [parent.id]:[]})
-                                        }
-                                        else 
-                                        {
-                                            let tmp = {...maladies};
-                                            delete tmp[parent.id];
-                                            setMaladies(tmp);
-                                        }
-                                    }}
-                                />
-                            } 
-                            label={parent.title} 
-                        />
-                    </Box>
                     {
-                        
-                        Object.keys(maladies).indexOf(""+parent.id) != -1 &&
                         parent.children.filter(c=> c.title.toLowerCase().includes(search.toLowerCase())).map(child=>
                             <Box sx={{display:'flex',flexDirection:'column',m:3}}>
                                 <FormControlLabel 
                                     control={
                                         <Checkbox  
-                                            checked={maladies[parent.id].filter(c => c.id == child.id).length > 0}
-                                            defaultChecked={maladies[parent.id].filter(c => c.id == child.id).length > 0}
+                                            checked={typeof(maladies[parent.id]) != "undefined" && maladies[parent.id].filter(c => c.id == child.id).length > 0}
+                                            defaultChecked={typeof(maladies[parent.id]) != "undefined" && maladies[parent.id].filter(c => c.id == child.id).length > 0}
                                             onChange={(e) => {
                                                 if(e.target.checked)
                                                 {
-                                                    setMaladies({
-                                                        ...maladies, 
-                                                        [parent.id]: 
-                                                        [...maladies[parent.id], {
-                                                            id: child.id,
-                                                            value: true
-                                                        }]
-                                                    })
+                                                    if(typeof(maladies[parent.id]) != "undefined")
+                                                    {
+                                                        setMaladies({
+                                                            ...maladies, 
+                                                            [parent.id]: 
+                                                            [...maladies[parent.id], {
+                                                                id: child.id,
+                                                                value: true
+                                                            }]
+                                                        })
+                                                    }
+                                                    else 
+                                                    {
+                                                        setMaladies({
+                                                            ...maladies, 
+                                                            [parent.id]: 
+                                                            [{
+                                                                id: child.id,
+                                                                value: true
+                                                            }]
+                                                        })
+                                                    }
                                                 }
                                                 else 
                                                 {

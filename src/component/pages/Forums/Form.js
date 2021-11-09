@@ -38,10 +38,28 @@ const Form = ({
                     variant="contained" 
                     disabled={activeStep === 4}
                     sx={{ display:"none",m: 5 }}
-                    onClick={()=>{setActivestep((activeStep)=> activeStep+1)}}
+                    onClick={()=>{goNext()}}
 
                 >
                 Suivant</Button>
+                :
+                (activeStep==1)?
+                <>
+                {
+                    !loading ?
+                    <Button
+                        variant="contained" 
+                        sx={{ m: 5 }}
+                        onClick={()=>{goNext()}}
+
+                    >
+                    Suivant</Button>
+                    :
+                    <CircularProgress sx={{ m: 5 }}  />
+
+
+                }
+                </>
                 :
                 (activeStep==steps.length -1)?
                 <>
@@ -50,12 +68,12 @@ const Form = ({
                     <Button
                         variant="contained" 
                         sx={{ m: 5 }}
-                        onClick={()=>{setActivestep((activeStep)=> activeStep+1)}}
+                        onClick={()=>{goNext()}}
 
                     >
                     Sauvgarder</Button>
                     :
-                    <CircularProgress />
+                    <CircularProgress sx={{ m: 5 }} />
 
 
                 }
@@ -101,10 +119,28 @@ const Form = ({
                 variant="contained" 
                 disabled={activeStep === 4}
                 sx={{display:"none", m: 5 }}
-                onClick={()=>{setActivestep((activeStep)=> activeStep+1)}}
+                onClick={()=>{goNext()}}
 
                 >
                 Suivant</Button>
+                :
+                (activeStep==1)?
+                <>
+                {
+                    !loading ?
+                    <Button
+                        variant="contained" 
+                        sx={{ m: 5 }}
+                        onClick={()=>{goNext()}}
+
+                    >
+                    Suivant</Button>
+                    :
+                    <CircularProgress sx={{ m: 5 }}  />
+
+
+                }
+                </>
                 :
                 (activeStep==steps.length -1)?
                 <>
@@ -113,12 +149,12 @@ const Form = ({
                     <Button
                         variant="contained" 
                         sx={{ m: 5 }}
-                        onClick={()=>{setActivestep((activeStep)=> activeStep+1)}}
+                        onClick={()=>{goNext()}}
 
                     >
                     Sauvgarder</Button>
                     :
-                    <CircularProgress />
+                    <CircularProgress sx={{ m: 5 }}  />
 
 
                 }
