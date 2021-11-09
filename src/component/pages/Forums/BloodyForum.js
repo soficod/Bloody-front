@@ -30,13 +30,13 @@ const BloodyForum = ()=>{
           axios.post('http://127.0.0.1:8000/api/people/validate',info)
           .then(res=>
             {
-              console.log(res);
+             
               setActivestep((activeStep)=> activeStep+1);
               
           })
           .catch(err =>
             {
-              console.log(err.response.data)
+          
               let errors=[];
               if(err.response.status == 422)
               {
@@ -56,7 +56,6 @@ const BloodyForum = ()=>{
           .then(res=>
             {
               
-              console.log(res);
               if(!res.data.data.result)
               {
                 Swal.fire({
@@ -87,7 +86,7 @@ const BloodyForum = ()=>{
               axios.get('http://127.0.0.1:8000/api/points')
               .then(res=>
               {
-                console.log(res.data.data)
+               
                 setParents((parents) => res.data.data)
                 setLoading(false);
                 setActivestep((activeStep)=> activeStep+1);
@@ -95,7 +94,7 @@ const BloodyForum = ()=>{
               .catch(err =>console.log(err))
             })
             .catch(err=>{
-              console.log(err.response.data)
+            
              
               if(err.response.status == 422)
               {
@@ -113,7 +112,7 @@ const BloodyForum = ()=>{
         }
      
         case 3:{
-              console.log('hello');
+            
             const arr_maladies = [];
             console.log(maladies)
             Object.keys(maladies).forEach(key => 
@@ -125,7 +124,7 @@ const BloodyForum = ()=>{
             
             })
   
-            console.log("MALADIE: ", arr_maladies);
+          
             let local_info = {...info, answers:arr_maladies}; 
             setInfo({...info, answers:arr_maladies});
             setLoading(true)    
@@ -136,8 +135,7 @@ const BloodyForum = ()=>{
               setResult((result) => res.data.data.results);
               setPerson((person) => res.data.data.person);
               setActivestep((activeStep)=> activeStep+1);
-              console.log(person)
-              console.log(result)
+            
              
             
             

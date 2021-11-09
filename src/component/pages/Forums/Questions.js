@@ -40,7 +40,7 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
             flexDirection:'column',
             
         }}>
-            {JSON.stringify(checked)}
+          
          <h1 style={{margin:"auto",marginBottom:"60px",width:"90%",textAlign:"center",height:"50px",color:"rgb(79, 78, 78,0.9", backgroundColor:"rgb(143, 199, 255,0.2)"}}>Questionnaire</h1>
          <Box 
             sx={{
