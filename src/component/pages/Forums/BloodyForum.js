@@ -78,7 +78,21 @@ const BloodyForum = ()=>{
                     bloodType:'',
                     answers:[]
                   })
+                  setError({
+                    fname:'',
+                    lname:'',
+                    sex: '',
+                    address:'',
+                    email:'',
+                    phone:'',
+                    birthdate:'',
+                    bloodType:'',
+                
+                  });
+                  setMaladies({});
                   setActivestep(0);
+                  setValue({});
+                  setChecked(false);
                 })
                 return;
               }
