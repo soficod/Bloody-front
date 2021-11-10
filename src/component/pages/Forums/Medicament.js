@@ -32,7 +32,7 @@ return(
         '&> :not(style)' :{width:'100%'}
     }}>
        
-            <h1 style={{textAlign:"center",marginBottom:"60px",height:"50px",color:"rgb(79, 78, 78,0.9", backgroundColor:"rgb(143, 199, 255,0.2)"}}>Maladies</h1>
+            <h1 style={{textAlign:"center",marginBottom:"60px",height:"50px",color:"rgb(79, 78, 78,0.9", backgroundColor:"rgb(143, 199, 255,0.2)"}}>Médicaments</h1>
         <Box sx={{
             my:3
         }}>
