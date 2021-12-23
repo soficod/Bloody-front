@@ -62,11 +62,11 @@ const BloodyForum = ()=>{
           .then(res=>
             {
               
-              if(!res.data.data.result)
+              if(!res.data.data.isAble)
               {
                 Swal.fire({
                   title:"Contre indication définitive.",
-                  text:res.data.data.explanation,
+                  html:`${res.data.data.result} <br/> ${res.data.data.volume != null ?res.data.data.volume : ""} <br/> ${res.data.data.comment}`,
                   icon:"error",
                   showConfirmButton:true,
                   confirmButtonText:"OK",
