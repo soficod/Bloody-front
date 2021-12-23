@@ -36,7 +36,7 @@ const Form = ({
                 (activeStep==steps.length)?
                 <Button
                     variant="contained" 
-                    disabled={activeStep === 4}
+                    disabled={activeStep === 7}
                     sx={{ display:"none",m: 5 }}
                     onClick={()=>{goNext()}}
 
@@ -79,7 +79,7 @@ const Form = ({
                     <Button
                     variant="contained"
                     sx={{ display:"none",m: 5 }}
-                    disabled={activeStep === 4}
+                    disabled={activeStep === 7}
                     onClick={()=>{setActivestep((activeStep)=> activeStep-1)}}
                     >Précédent </Button>
                     :
@@ -100,7 +100,7 @@ const Form = ({
                 (activeStep==steps.length)?
                 <Button
                 variant="contained" 
-                disabled={activeStep === 4}
+                disabled={activeStep === 7}
                 sx={{display:"none", m: 5 }}
                 onClick={()=>{goNext()}}
 
@@ -145,7 +145,7 @@ const Form = ({
                 <Button
                 variant="contained"
                 sx={{ display:"none",m: 5 }}
-                disabled={activeStep === 4}
+                disabled={activeStep === 7}
                 onClick={()=>{setActivestep((activeStep)=> activeStep-1)}}
                 >Précédent </Button>
                 :

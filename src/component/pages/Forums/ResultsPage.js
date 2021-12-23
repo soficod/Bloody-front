@@ -67,8 +67,10 @@ const ResultsPage = ({info,setChecked,result,person,setInfo,setActivestep, setMa
                     phone: '',
                     birthdate:new Date(''),
                     email:'',
-                    bloodType:'',
+                    weight:null,
                     answers:[]
+                   
+
                   })
                   setActivestep(0);
                   setMaladies({});
@@ -80,7 +82,8 @@ const ResultsPage = ({info,setChecked,result,person,setInfo,setActivestep, setMa
                     email:'',
                     phone:'',
                     birthdate:'',
-                    bloodType:'',
+                   
+             
                 
                   });
                   setValue({});

@@ -3,7 +3,6 @@ import Personalinfo from './Personalinfo';
 import Box from '@mui/material/Box';
 import Questions from './Questions';
 import Maladies from './Maladies';
-
 import axios from 'axios'
 import ResultsPage from './ResultsPage';
 import Swal from 'sweetalert2';
@@ -12,26 +11,32 @@ import Tab from '@mui/material/Tab';
 import DashBoard from './DashBoard'
 import Form from './Form';
 import Medicament from './Medicament';
+import Risque from './Risque';
+import Vaccin from './Vaccin';
+import Expfctl from './Expfctl';
+import Chirurgie from './Chirurgie'
 import {
   Routes,
   Route,
   Link
 } from "react-router-dom";
 
+
 const BloodyForum = ()=>{
     
-    const steps = ["Informations","Questionnaire","Maladies","Médicaments"]
+  const steps = ["Informations","Questionnaire","Maladies","Médicaments","Comportement à risque","exploration fctl","chirurgie","vaccins"]
     
     const goNext = () => 
     {
       switch(activeStep)
       {
         case 0: {
-          axios.post('http://127.0.0.1:8000/api/people/validate',info)
+          axios.post('http://127.0.0.1:8000/api/people',info)
           .then(res=>
             {
              
               setActivestep((activeStep)=> activeStep+1);
+              setPerson((person) => res.data.data.id);
               
           })
           .catch(err =>
@@ -43,6 +48,7 @@ const BloodyForum = ()=>{
                 Object.keys(err.response.data.errors).forEach(key => 
                   {
                     errors[key] = err.response.data.errors[key][0];
+                    
                   })
                   setError(errors)
               }
@@ -75,8 +81,9 @@ const BloodyForum = ()=>{
                     phone: '',
                     birthdate:new Date(''),
                     email:'',
-                    bloodType:'',
+                    weight:null,
                     answers:[]
+                   
                   })
                   setError({
                     fname:'',
@@ -86,7 +93,10 @@ const BloodyForum = ()=>{
                     email:'',
                     phone:'',
                     birthdate:'',
-                    bloodType:'',
+                  
+                
+                
+
                 
                   });
                   setMaladies({});
@@ -104,6 +114,7 @@ const BloodyForum = ()=>{
                 setParents((parents) => res.data.data)
                 setLoading(false);
                 setActivestep((activeStep)=> activeStep+1);
+                console.log(res.data.data);
               })
               .catch(err =>console.log(err))
             })
@@ -112,8 +123,13 @@ const BloodyForum = ()=>{
              
               if(err.response.status == 422)
               {
-              
-                  setError({...error,donationType:err.response.data.errors.donationType})
+                  let errors = {...error}
+                  Object.keys(err.response.data.errors).forEach(key => 
+                   
+                    errors[key] = err.response.data.errors[key][0]
+                    
+                  );
+                  setError(errors);
               }
 
             })
@@ -147,9 +163,9 @@ const BloodyForum = ()=>{
             {
               setLoading(false);
               setResult((result) => res.data.data.results);
-              setPerson((person) => res.data.data.person);
+             
               setActivestep((activeStep)=> activeStep+1);
-            
+              console.log(res.data);
              
             
             
@@ -158,17 +174,31 @@ const BloodyForum = ()=>{
            
            
            
-            break;
+           break;
           }
           case 4:{setActivestep((activeStep)=> activeStep+1);
-          break;
+           break;
+            }
+          case 5:{setActivestep((activeStep)=> activeStep+1);
+           break;
           }
+          case 6:{setActivestep((activeStep)=> activeStep+1);
+            break;
+            }
+          case 7:{setActivestep((activeStep)=> activeStep+1);
+            break;
+              }
+          case 8:{setActivestep((activeStep)=> activeStep+1);
+            break;
+              }
       }
     
     
 
     }
+
     const [value,setValue]= React.useState({});
+    const[donorTypeValue,setDonorTypeValue] = React.useState({})
     const [loading,setLoading]=React.useState(false);
     const [postData,setPostData]= React.useState([]);
     const [activeStep,setActivestep]=React.useState(0);
@@ -180,7 +210,7 @@ const BloodyForum = ()=>{
       phone: '',
       birthdate:new Date(''),
       email:'',
-      bloodType:'',
+      type:'',
       answers:[]
     })
 
@@ -194,7 +224,8 @@ const BloodyForum = ()=>{
       email:'',
       phone:'',
       birthdate:'',
-      bloodType:'',
+    
+    
   
     })
   
@@ -208,24 +239,70 @@ const BloodyForum = ()=>{
     const renderSwitch =(steps)=>{
       switch(steps){
         case 0:
-          return <Personalinfo error={error} info={info} setInfo={setInfo} />
+          return <Personalinfo 
+          error={error} 
+          info={info} 
+          setInfo={setInfo} />
+
         case 1:
-          return <Questions  value={value} setValue={setValue} valueChecked ={valueChecked } setValueChecked={setValueChecked} setChecked={setChecked} setError={setError} error={error} checked={checked} setChecked={setChecked} answers={info} setAnswers={setInfo} />
+          return <Questions
+          donorTypeValue ={donorTypeValue} 
+          setDonorTypeValue= {setDonorTypeValue}
+          value={value} setValue={setValue} 
+          valueChecked ={valueChecked } 
+          setValueChecked={setValueChecked}
+          setChecked={setChecked}
+          setError={setError} 
+          error={error} 
+          checked={checked}
+          setChecked={setChecked}
+          answers={info}
+          setAnswers={setInfo} />
+
         case 2:
           return <Maladies 
             parents={parents}
             maladies={maladies} 
-            setMaladies={setMaladies}
-           
-          />
+            setMaladies={setMaladies} />
         
         case 3:return <Medicament 
             parents={parents}
             maladies={maladies} 
             setMaladies={setMaladies}/>
-        case 4: return <ResultsPage setChecked={setChecked}setValue={setValue} info={info} setError={setError} result={result} setInfo={setInfo} setActivestep={setActivestep}  setMaladies={setMaladies} person={person}/>
         
+        case 4:return <Risque
+        parents={parents}
+        maladies={maladies} 
+        setMaladies={setMaladies}/>
+
+        case 5:return <Expfctl
+        parents={parents}
+        maladies={maladies} 
+        setMaladies={setMaladies}/>
+
+        case 6:return <Chirurgie
+        parents={parents}
+        maladies={maladies} 
+        setMaladies={setMaladies}/>
+
+        case 7:return <Vaccin
+        parents={parents}
+        maladies={maladies} 
+        setMaladies={setMaladies}/>
+
+        case 8: return <ResultsPage 
+        setChecked={setChecked}
+        setValue={setValue} 
+        info={info}
+        setError={setError}
+        result={result} 
+        setInfo={setInfo}
+        setActivestep={setActivestep}
+        setMaladies={setMaladies}
+        person={person}/>
+    
       }
+
   
     }
 
@@ -236,7 +313,7 @@ const BloodyForum = ()=>{
      
       width: "100vw",
       height: "100vh",
-      paddingTop:"50px"
+      paddingTop:"30px"
     }}>
      <Box  
 
@@ -246,7 +323,7 @@ const BloodyForum = ()=>{
           alignItems:'center',
           justifyContent:'center',
           marginTop:'100px',
-          maxWidth: "900px",
+          maxWidth: "1000px",
           width:'90%',
           margin:'auto',
           boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',

@@ -6,16 +6,21 @@ import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
+import FormGroup from '@mui/material/FormGroup';
+
+
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 const Maladies = ({parents,maladies,setMaladies})=>{
 
 const [localMaladie,setLocalMaladie] = React.useState([]);
 const [search,setSearch] = React.useState("");
-
+const table = [4,5,6,7,8,9,10,11,12,13,25,26,27,28]
     useEffect(()=>{
         if(typeof(parents) != "undefined")
         {
             setLocalMaladie(parents.filter(m=>{
-                return m.id != 26 
+               return m.id != 26 && m.id != 4 && m.id != 5 && m.id != 6 && m.id != 7 && m.id != 8 && m.id != 9 && m.id != 10 && m.id != 11 && m.id != 12 && m.id != 13 && m.id !=25 && m.id != 27 && m.id != 28
             }))
         }
     },[parents])
@@ -35,6 +40,38 @@ return(
         <Box sx={{
             my:3
         }}>
+                      <Box sx={{
+                width:'100%',
+            
+
+            }}>
+               <p style={{fontSize:'1.5em',backgroundColor:'rgb(154, 196, 237,0.2)',padding:"20px"}}>Vous sentez-vous en forme pour donner votre sang?</p>
+               <FormGroup sx={{pl:"30px"}}>
+               <RadioGroup
+              
+                    name="radio-buttons-group"
+                >
+                    <FormControlLabel  value="oui" control={<Radio  />} label="Oui" />
+                     
+                    <FormControlLabel value="non" control={<Radio  />} label="Non" />
+                 
+                </RadioGroup>
+                </FormGroup>
+   
+               <p style={{fontSize:'1.5em',backgroundColor:'rgb(154, 196, 237,0.2)',padding:"20px"}}>Avez vous (ou avez vous eu) une maladie?</p>
+               <FormGroup sx={{pl:"30px"}}>
+               <RadioGroup
+                    sx={{marginBottom:"20px"}}
+                    name="radio-buttons-group"
+                >
+                    <FormControlLabel  value="oui" control={<Radio  />} label="Oui" />
+                     
+                    <FormControlLabel value="non" control={<Radio  />} label="Non" />
+                 
+                </RadioGroup>
+                </FormGroup>
+               
+           
             <Paper sx={{marginBottom:"50px"}}>
             <IconButton type="submit" sx={{pl:0, p: '20px' }} aria-label="search">
                 <SearchIcon sx={{color:"#1976D2"}} />
@@ -47,6 +84,7 @@ return(
             />
            
             </Paper>
+  
         {
             localMaladie.filter(p=>{
                 return p.children.filter(c=> c.title.toLowerCase().includes(search.toLowerCase())).length>0
@@ -138,6 +176,7 @@ return(
         }
 
     </Box>
+</Box>
 </Box>
 )
 
