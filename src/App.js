@@ -5,8 +5,8 @@ import Personalinfo from './component/pages/Forums/Personalinfo';
 import './styles/global.css';
 
 export default function App() {
- 
+  
   return (
-    <BloodyForum/>
+    <BloodyForum  />
   );
 }

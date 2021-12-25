@@ -1,7 +1,7 @@
 <FormControl >
 <InputLabel id="bloodtype">Groupe sanguin</InputLabel>
    <Select
- 
+            
    id="bloodtype"
    value={info.bloodType}
    defaultValue={info.bloodType}

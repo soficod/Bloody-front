@@ -18,34 +18,12 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import SaveIcon from '@mui/icons-material/Save';
 
 
+const ResultsPage = ({person,setPerson,info,setChecked,result,setInfo,setActivestep, setMaladies,setError,setValue})=>{
 
-const ResultsPage = ({info,setChecked,result,person,setInfo,setActivestep, setMaladies,setError,setValue})=>{
-
-    const handleClick=()=>{
-        axios.post('http://127.0.0.1:8000/api/people/'+person.id+'/donate')
-        .then(res=>{
-            Swal.fire({
-                title:"Prise de sang effectuée avec succés",
-                icon:"success",
-                showConfirmButton:true,
-                confirmButtonText:"OK",
-                confirmButtonColor:"#1976D2",
-                
-              })
-              
-        })
-        .catch(err=>{
-            Swal.fire({
-                title:err,
-                icon:"error",
-                showConfirmButton:true,
-                confirmButtonText:"OK",
-                confirmButtonColor:"#1976D2"
-              })
-        }) 
-    }
+    
     const handleQuitter=()=>{
         
         Swal.fire({
@@ -93,8 +71,57 @@ const ResultsPage = ({info,setChecked,result,person,setInfo,setActivestep, setMa
            
           })
  }
+    const handleClickButton=()=>{
+        axios.post('http://127.0.0.1:8000/api/people',info)
+        .then(res=>{
+            Swal.fire({
+                title:"Prise de sang effectuée avec succés",
+                icon:"success",
+                showConfirmButton:true,
+                confirmButtonText:"OK",
+                confirmButtonColor:"#1976D2",
+                
+            })
+   
+            
+        })
+        
+        .catch(err=>{
+            Swal.fire({
+                title:err,
+                icon:"error",
+                showConfirmButton:true,
+                confirmButtonText:"OK",
+                confirmButtonColor:"#1976D2"
+            })
+        }) 
+    }
 
-    console.log(person.id);
+    const handleClick=()=>{
+        axios.post('http://127.0.0.1:8000/api/people/donate',info)
+        .then(res=>{
+
+            Swal.fire({
+                title:"Prise de sang effectuée avec succés",
+                icon:"success",
+                showConfirmButton:true,
+                confirmButtonText:"OK",
+                confirmButtonColor:"#1976D2",
+                
+            })
+            
+        })
+        .catch(err=>{
+            Swal.fire({
+                title:err,
+                icon:"error",
+                showConfirmButton:true,
+                confirmButtonText:"OK",
+                confirmButtonColor:"#1976D2"
+            })
+        }) 
+    }
+   
     return(
         <>
             
@@ -241,22 +268,45 @@ const ResultsPage = ({info,setChecked,result,person,setInfo,setActivestep, setMa
             </Box>
             {
                    typeof(result) != "undefined" && result.length ==0 || typeof(result) != "undefined" && (!result.filter(r => r.result === "cid").length > 0) ?
-                    <Box sx={{display:"flex",flexDirection:"row"}}>
-                        <Button sx={{
-                            minWidth:"100px",
-                            textAlign:"center",
-                            margin:"50px auto",
-                            fontSize:"1.2em"
-
-                        }} 
-                        variant="outlined" 
-                        startIcon={<DoneAllIcon />}
-                        onClick={handleClick}
+                    <Box sx={{display:"flex",flexDirection:"column"}}>
+                        <Box
+                        sx={{display:"flex",flexDirection:"row"}}
                         >
                         
-                        Prise de sang Effectuée
-                        </Button>
-                        <Button sx={{
+                            <Button
+                            sx={{
+                                    minWidth:"100px",
+                                    textAlign:"center",
+                                    margin:"50px auto",
+                                    fontSize:"1.2em",
+                                    backgroundColor:"rgb(25,118,210)",
+                                    color:"white"
+
+                                }} 
+                            variant="outlined" 
+                            startIcon={<SaveIcon />}
+                            onClick={handleClickButton}
+                                >
+                                
+                                Sauvegarder le donneur
+                            </Button>
+                            <Button
+                            sx={{
+                                    minWidth:"100px",
+                                    textAlign:"center",
+                                    margin:"50px auto",
+                                    fontSize:"1.2em"
+
+                                }} 
+                            variant="outlined" 
+                            startIcon={<SaveIcon/>}
+                            onClick={handleClick}
+                                >
+                                
+                                Sauvegarder la donnation 
+                            </Button>
+                        </Box>                             
+                  <Button sx={{
                         minWidth:"100px",
                         textAlign:"center",
                         margin:"50px auto",

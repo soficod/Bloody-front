@@ -23,20 +23,70 @@ import {
 
 
 const BloodyForum = ()=>{
-    
+  const [person,setPerson] =React.useState({});
   const steps = ["Informations","Questionnaire","Maladies","Médicaments","Comportement à risque","exploration fctl","chirurgie","vaccins"]
+  const handleClickButton=()=>{
+    axios.post('http://127.0.0.1:8000/api/people',info)
+    .then(res=>{
+        Swal.fire({
+            title:"Prise de sang effectuée avec succés",
+            icon:"success",
+            showConfirmButton:true,
+            confirmButtonText:"OK",
+            confirmButtonColor:"#1976D2",
+            
+          })
+          setPerson({...person,id:res.data.data.id});
+          console.log(res.data.data.id);
+          
+    })
     
+    .catch(err=>{
+        Swal.fire({
+            title:err,
+            icon:"error",
+            showConfirmButton:true,
+            confirmButtonText:"OK",
+            confirmButtonColor:"#1976D2"
+          })
+    }) 
+}
+
+  const handleClick=()=>{
+    axios.post('http://127.0.0.1:8000/api/people/donate',info)
+    .then(res=>{
+
+        Swal.fire({
+            title:"Prise de sang effectuée avec succés",
+            icon:"success",
+            showConfirmButton:true,
+            confirmButtonText:"OK",
+            confirmButtonColor:"#1976D2",
+            
+          })
+          
+    })
+    .catch(err=>{
+        Swal.fire({
+            title:err,
+            icon:"error",
+            showConfirmButton:true,
+            confirmButtonText:"OK",
+            confirmButtonColor:"#1976D2"
+          })
+    }) 
+}
     const goNext = () => 
     {
       switch(activeStep)
       {
         case 0: {
-          axios.post('http://127.0.0.1:8000/api/people',info)
+          axios.post('http://127.0.0.1:8000/api/people/validate',info)
           .then(res=>
             {
              
               setActivestep((activeStep)=> activeStep+1);
-              setPerson((person) => res.data.data.id);
+             
               
           })
           .catch(err =>
@@ -154,7 +204,7 @@ const BloodyForum = ()=>{
             
             })
   
-          
+        
             let local_info = {...info, answers:arr_maladies}; 
             setInfo({...info, answers:arr_maladies});
             setLoading(true)    
@@ -202,6 +252,7 @@ const BloodyForum = ()=>{
     const [loading,setLoading]=React.useState(false);
     const [postData,setPostData]= React.useState([]);
     const [activeStep,setActivestep]=React.useState(0);
+ 
     const [info, setInfo] = React.useState({
       fname:'',
       lname: '',
@@ -233,7 +284,7 @@ const BloodyForum = ()=>{
     const[result,setResult]=React.useState([])
     const [parents,setParents]= React.useState([])
    
-    const [person,setPerson] =React.useState({});
+    
     const [checked,setChecked]=React.useState(false);
     const [valueChecked,setValueChecked] = React.useState(false);
     const renderSwitch =(steps)=>{
@@ -299,7 +350,10 @@ const BloodyForum = ()=>{
         setInfo={setInfo}
         setActivestep={setActivestep}
         setMaladies={setMaladies}
-        person={person}/>
+     
+        handleClick={handleClick}
+        handleClickButton={handleClickButton}
+        />
     
       }
 
@@ -368,7 +422,7 @@ const BloodyForum = ()=>{
             path="/dashboard"
             element={
               
-            <DashBoard/>
+            <DashBoard />
             }
           />
         </Routes>

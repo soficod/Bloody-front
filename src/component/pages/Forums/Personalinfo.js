@@ -37,9 +37,11 @@ const Personalinfo = ({info, setInfo,error})=>{
                 >
                   
                     <h1 style={{textAlign:"center",marginBottom:"60px",height:"50px",color:"rgb(79, 78, 78,0.9", backgroundColor:"rgb(143, 199, 255,0.2)"}}>Information personnelles</h1>
-                {/*JSON.stringify(info)*/}
+               <Box
+                   sx={{width:"100%",display:"flex",flexDirection:"row",justifyContent:"space-between"}}
+               >
                 <Box
-                    sx={{width:"200px"}}
+                    sx={{width:"300px"}}
                 >
                     
                         <TextField 
@@ -56,7 +58,7 @@ const Personalinfo = ({info, setInfo,error})=>{
                     />
                 </Box>
                 <Box
-                    sx={{width:"200px"}}
+                    sx={{width:"407px"}}
                 >
                     
                         <TextField 
@@ -71,6 +73,7 @@ const Personalinfo = ({info, setInfo,error})=>{
                         variant="outlined"
                         required
                     />
+                </Box>
                 </Box>
                 <Box sx={{
                     display:'flex',
@@ -199,11 +202,12 @@ const Personalinfo = ({info, setInfo,error})=>{
                         
                     />
                      
-                
+             
              
 
                
             </Box>
+          
             
         </>
     )

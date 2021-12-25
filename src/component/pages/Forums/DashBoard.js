@@ -11,8 +11,10 @@ import { styled } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import React, { useEffect } from 'react'
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
-
-
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import IconButton from '@mui/material/IconButton';
+import CollapsibleTable from './CollapsibleTable';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -34,12 +36,14 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
 const DashBoard =()=>{
- 
-      const [blood,setBlood] = React.useState([])
+      const [person,setPerson] = React.useState([]);
+      const [open, setOpen] = React.useState(false);
       useEffect(()=>{
-        axios.get("http://127.0.0.1:8000/api/blood")
+        axios.get("http://127.0.0.1:8000/api/people/")
         .then(res=>{
-            setBlood(res.data.data)
+            setPerson(res.data.data)
+            console.log(res.data.data)
+            
         })
         .catch(err=>{console.log(err)})
       },[]);
@@ -47,40 +51,18 @@ const DashBoard =()=>{
     return(
     
         <>
-              <TableContainer component={Paper} sx={{width: "80%", margin: " 50px auto"}}>
-                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                            <TableHead>
-                            <TableRow>
-                            
-                                <StyledTableCell>Groupe sanguin</StyledTableCell>
-                                <StyledTableCell>Somme</StyledTableCell>
-                            </TableRow>
-                            </TableHead>
-                            <TableBody>
-                            {blood.map((row) => (
-                                <StyledTableRow
-                                key={row.id}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                <StyledTableCell>{row.name}</StyledTableCell>
-                                <StyledTableCell>{row.count}</StyledTableCell>
-
-                                </StyledTableRow>
-                            ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+            <CollapsibleTable data={person}/>
             
             <PieChart width={400} height={400}>
                 <Pie
-                    data={blood}
+                    data={person}
                     labelLine={true}
                     outerRadius={80}
                     label={(entry) => entry.name}
                     fill="#8884d8"
                     dataKey="value"
                 >
-                    {blood.map((entry, index) => (
+                    {person.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                 </Pie>
