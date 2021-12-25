@@ -278,9 +278,7 @@ const ResultsPage = ({person,setPerson,info,setChecked,result,setInfo,setActives
                                     minWidth:"100px",
                                     textAlign:"center",
                                     margin:"50px auto",
-                                    fontSize:"1.2em",
-                                    backgroundColor:"rgb(25,118,210)",
-                                    color:"white"
+                                    fontSize:"1.2em"
 
                                 }} 
                             variant="outlined" 
