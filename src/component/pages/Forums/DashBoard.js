@@ -51,8 +51,11 @@ const DashBoard =()=>{
     return(
     
         <>
+       
+
+    
             <CollapsibleTable data={person}/>
-            
+       
             <PieChart width={400} height={400}>
                 <Pie
                     data={person}
@@ -67,6 +70,7 @@ const DashBoard =()=>{
                     ))}
                 </Pie>
             </PieChart>
+           
         </>
     )
 }

@@ -11,7 +11,7 @@ import FormGroup from '@mui/material/FormGroup';
 
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
-const Maladies = ({parents,maladies,setMaladies})=>{
+const Maladies = ({quest,setQuest,parents,maladies,setMaladies})=>{
 
 const [localMaladie,setLocalMaladie] = React.useState([]);
 const [search,setSearch] = React.useState("");
@@ -48,8 +48,10 @@ return(
                <p style={{fontSize:'1.5em',backgroundColor:'rgb(154, 196, 237,0.2)',padding:"20px"}}>Vous sentez-vous en forme pour donner votre sang?</p>
                <FormGroup sx={{pl:"30px"}}>
                <RadioGroup
-              
+                    onChange={e=>setQuest({...quest,first_qest:e.target.value})}
                     name="radio-buttons-group"
+                    value={quest.first_qest}
+                    defaultValue={quest.first_qest}
                 >
                     <FormControlLabel  value="oui" control={<Radio  />} label="Oui" />
                      
@@ -63,6 +65,10 @@ return(
                <RadioGroup
                     sx={{marginBottom:"20px"}}
                     name="radio-buttons-group"
+                    onChange={e=>setQuest({...quest,sec_qest:e.target.value})}
+                   
+                    value={quest.sec_qest}
+                    defaultValue={quest.sec_qest}
                 >
                     <FormControlLabel  value="oui" control={<Radio  />} label="Oui" />
                      

@@ -19,9 +19,9 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import SaveIcon from '@mui/icons-material/Save';
+import BloodtypeIcon from '@mui/icons-material/Bloodtype';
 
-
-const ResultsPage = ({person,setPerson,info,setChecked,result,setInfo,setActivestep, setMaladies,setError,setValue})=>{
+const ResultsPage = ({setQuest,person,setPerson,info,setChecked,result,setInfo,setActivestep, setMaladies,setError,setValue})=>{
 
     
     const handleQuitter=()=>{
@@ -66,6 +66,12 @@ const ResultsPage = ({person,setPerson,info,setChecked,result,setInfo,setActives
                   });
                   setValue({});
                   setChecked(false);
+                  setQuest(
+                      {
+                          first_qest:"",
+                          sec_qest:""
+                      }
+                  )
               } 
             
            
@@ -75,7 +81,7 @@ const ResultsPage = ({person,setPerson,info,setChecked,result,setInfo,setActives
         axios.post('http://127.0.0.1:8000/api/people',info)
         .then(res=>{
             Swal.fire({
-                title:"Prise de sang effectuée avec succés",
+                title:"Donneur enregistré avec succés",
                 icon:"success",
                 showConfirmButton:true,
                 confirmButtonText:"OK",
@@ -179,8 +185,9 @@ const ResultsPage = ({person,setPerson,info,setChecked,result,setInfo,setActives
                     <td style={{paddingBottom:"30px",color:"#696666"}}>{info.birthdate.getDate()+"/"+(info.birthdate.getMonth()+1)+"/"+info.birthdate.getFullYear()}</td>
                 </tr>
                 <tr>
-                    <th style={{paddingBottom:"30px",color:"#403e3e"}}>Groupe sanguin</th>
-                    <td style={{paddingBottom:"30px",color:"#696666"}}>{info.bloodType}</td>
+                    <th style={{paddingBottom:"30px",color:"#403e3e"}}>Type de don</th>
+                    <td style={{paddingBottom:"30px",color:"#696666"}}>{info.donation_type}</td>
+                    
                 </tr>
             </table>
 
@@ -219,7 +226,7 @@ const ResultsPage = ({person,setPerson,info,setChecked,result,setInfo,setActives
                                     backgroundColor: "rgba(0,0,0,0)",
                                     fontWeight: "bold",
                                     color:"rgb(76,175,80)"
-                                }}>Prise de sang autorisé</button>
+                                }}>Prise de sang autorisée</button>
                             </Box>
                     }
                 </Box>
@@ -286,7 +293,7 @@ const ResultsPage = ({person,setPerson,info,setChecked,result,setInfo,setActives
                             onClick={handleClickButton}
                                 >
                                 
-                                Sauvegarder le donneur
+                                Enregistrer le donneur
                             </Button>
                             <Button
                             sx={{
@@ -297,11 +304,11 @@ const ResultsPage = ({person,setPerson,info,setChecked,result,setInfo,setActives
 
                                 }} 
                             variant="outlined" 
-                            startIcon={<SaveIcon/>}
+                            startIcon={<BloodtypeIcon/>}
                             onClick={handleClick}
                                 >
                                 
-                                Sauvegarder la donnation 
+                                Effectuer un don 
                             </Button>
                         </Box>                             
                   <Button sx={{

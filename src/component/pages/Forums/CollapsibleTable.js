@@ -93,6 +93,7 @@ function Row(props) {
                     <StyledDonationCell>Type de don</StyledDonationCell>
                     <StyledDonationCell>Type de donneur </StyledDonationCell>
                     <StyledDonationCell >site</StyledDonationCell>
+                    <StyledDonationCell >Date</StyledDonationCell>
                     { 
                       row.donations.donor_type == "family"&&
                       <>
@@ -117,6 +118,7 @@ function Row(props) {
                       </StyledTableCell>
                       <StyledTableCell>{donationRow.donor_type}</StyledTableCell>
                       <StyledTableCell >{donationRow.site}</StyledTableCell>
+                      <StyledTableCell >{donationRow.created_at}</StyledTableCell>
                       {
                         donationRow == "family"&&
                         <>
@@ -142,6 +144,12 @@ function Row(props) {
 
 export default function CollapsibleTable({data}) {
   return (
+    <Box
+      sx={{marginTop:"50px",
+            width:"90%",
+            '&>':{width:"80%"}
+    }}
+    >
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
@@ -149,8 +157,9 @@ export default function CollapsibleTable({data}) {
             <StyledTableCell />
             <StyledTableCell>Nom</StyledTableCell>
             <StyledTableCell align="right">Prénom</StyledTableCell>
-            <StyledTableCell align="right">Sexe</StyledTableCell>
             <StyledTableCell align="right">Date de naissance</StyledTableCell>
+            <StyledTableCell align="right">Sexe</StyledTableCell>
+            
            
           </StyledTableRow>
         </TableHead>
@@ -161,5 +170,7 @@ export default function CollapsibleTable({data}) {
         </TableBody>
       </Table>
     </TableContainer>
+    </Box>
   );
+ 
 }

@@ -54,7 +54,7 @@ const Form = ({
                         onClick={()=>{goNext()}}
 
                     >
-                    Sauvgarder</Button>
+                    Voir les Résultats</Button>
                     :
                     <CircularProgress sx={{ m: 5 }} />
 
@@ -118,7 +118,7 @@ const Form = ({
                         onClick={()=>{goNext()}}
 
                     >
-                    Sauvgarder</Button>
+                    Voir les Résultats </Button>
                     :
                     <CircularProgress sx={{ m: 5 }}  />
 

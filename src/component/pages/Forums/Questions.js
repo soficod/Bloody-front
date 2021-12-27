@@ -94,7 +94,7 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                             value="regular" 
                             onChange={handleCheckedFamily}
                             control={<Radio />} 
-                            label="Volontaire regulier"
+                            label="Volontaire régulier"
                            
                         />
                         
@@ -109,14 +109,21 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                             value="family" 
                             onChange={handleCheckedFamily}
                             control={<Radio />}
-                            label="familial (compensation)"
+                            label="Familial (compensation)"
 
                         />
                     
                 </RadioGroup>
                 {
                     (typeof(error.donor_type) != "undefined")?
-                        <p style={{paddingBottom:"10px",color:"rgb(216,47,47)"}}>{error.donor_type}</p>
+                        <p style={{
+                                   fontWeight:"400" ,
+                                   fontSize: "0.75rem",
+                                   fontFamily: `"Roboto","Helvetica","Arial",sans-serif`,
+                                   paddingBottom:"10px",color:"#d32f2f"}}>
+
+                            {error.donor_type}
+                        </p>
                     :
                         ""
                 }
@@ -145,20 +152,35 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                         >
                             <TextField
                             id="outlined-name"
-                            label="Nom malade"
+                            label="Nom du malade"
                             variant="standard"
-                            onChange ={(e)=>setAnswers({...answers,patient_fname:e.target.value})}
+                            onChange ={(e)=>{
+                                setAnswers({...answers,patient_fname:e.target.value})
+                                let tmp={...error}
+                                delete tmp["patient_fname"];
+                                setError(tmp);
+
+                            }}
                             value={typeof(answers.patient_fname)!="undefined" ? answers.patient_fname :" "}
                             defaultValue={typeof(answers.patient_fname)!="undefined" ? answers.patient_fname :" "}
+                            error={  typeof(error.patient_fname) != "undefined" && error.patient_fname}
+                            helperText={ typeof(error.patient_fname) != "undefined"  &&  error.patient_fname? error.patient_fname : ' '}
                         
                             />
                             <TextField
                             id="outlined-name"
-                            label="Prénom malade"
+                            label="Prénom du malade"
                             variant="standard"
-                            onChange ={(e)=>setAnswers({...answers,patient_lname:e.target.value})}
+                            onChange ={(e)=>{
+                                setAnswers({...answers,patient_lname:e.target.value})
+                                let tmp={...error}
+                                delete tmp["patient_lname"];
+                                setError(tmp);
+                            }}
                             value={typeof(answers.patient_lname)!="undefined" ? answers.patient_lname :" "}
                             defaultValue={typeof(answers.patient_lname)!="undefined" ? answers.patient_lname :" "}
+                            error={  typeof(error.patient_lname) != "undefined" && error.patient_lname}
+                            helperText={ typeof(error.patient_lname) != "undefined"  &&  error.patient_lname? error.patient_lname : ' '}
                             />
                         </Box>
                      <Box 
@@ -178,17 +200,31 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                         id="outlined-name"
                         label="Service"
                         variant="standard"
-                        onChange ={(e)=>setAnswers({...answers,patient_service:e.target.value})}
+                        onChange ={(e)=>{
+                            setAnswers({...answers,patient_service:e.target.value})
+                            let tmp={...error}
+                            delete tmp["patient_service"];
+                            setError(tmp);
+                        }}
                         value={typeof(answers.patient_service)!="undefined" ? answers.patient_service :" "}
                         defaultValue={typeof(answers.patient_service)!="undefined" ? answers.patient_service :" "}
+                        error={  typeof(error.patient_service) != "undefined" && error.patient_service}
+                        helperText={ typeof(error.patient_service) != "undefined"  &&  error.patient_service? error.patient_service : ' '}
                         />
                           <TextField
                         id="outlined-name"
                         label="Clinique"
                         variant="standard"
-                        onChange ={(e)=>setAnswers({...answers,patient_clinic:e.target.value})}
+                        onChange ={(e)=>{
+                            setAnswers({...answers,patient_clinic:e.target.value})
+                            let tmp={...error}
+                            delete tmp["patient_clinic"];
+                            setError(tmp);
+                        }}
                         value={typeof(answers.patient_clinic)!="undefined" ? answers.patient_clinic :" "}
                         defaultValue={typeof(answers.patient_clinic)!="undefined" ? answers.patient_clinic :" "}
+                        error={  typeof(error.patient_clinic) != "undefined" && error.patient_clinic}
+                        helperText={ typeof(error.patient_clinic) != "undefined"  &&  error.patient_clinic? error.patient_clinic : ' '}
                        
                         />
                      </Box>
@@ -240,7 +276,7 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                     <FormControlLabel 
                         value="blood" 
                        
-                        control={<Radio />} label="sang total"
+                        control={<Radio />} label="Sang total"
                      />
                      
                     <FormControlLabel 
@@ -272,7 +308,13 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                
                 {
                     (typeof(error.donation_type) != "undefined")?
-                        <p style={{paddingBottom:"10px",color:"rgb(216,47,47)"}}>{error.donation_type}</p>
+                        <p style={{fontWeight:"400" ,
+                                   fontSize: "0.75rem",
+                                   fontFamily: `"Roboto","Helvetica","Arial",sans-serif`,
+                                   paddingBottom:"10px",color:"#d32f2f"}}>
+
+                                 {error.donation_type}
+                        </p>
                     :
                         ""
                 }
@@ -311,10 +353,10 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                     
                     >
                     <FormControlLabel 
-                            value="fix" 
+                            value="Fix" 
                             
                             control={<Radio />} 
-                            label="fixe(in situ)"
+                            label="Fixe(in situ)"
                            
                         />
                         
@@ -322,13 +364,20 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                             value="mobile" 
                             
                             control={<Radio />}
-                            label="mobile"
+                            label="Mobile"
                         
                         />
                     </RadioGroup>
                     {
                     (typeof(error.site) != "undefined")?
-                        <p style={{paddingBottom:"10px",color:"rgb(216,47,47)"}}>{error.site}</p>
+                        <p style={{
+                            fontWeight:"400" ,
+                            fontSize: "0.75rem",
+                            fontFamily: `"Roboto","Helvetica","Arial",sans-serif`,
+                            paddingBottom:"10px",color:"#d32f2f"}}
+                        >
+                            {error.site}
+                        </p>
                     :
                         ""
                      }
@@ -384,14 +433,14 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                                 row={true}
                                  sx={{backgroundColor:'rgb(154, 196, 237,0.1)',p:1}} >
                                 
-                                    <InputLabel sx={{m:2,marginTop:"30px",color:"rgb(88,92,89)"}} id="last_donation">Don effectuer y'a plus de:</InputLabel>
+                                    <InputLabel sx={{m:2,marginTop:"30px",color:"rgb(88,92,89)"}} id="last_donation">Dernier don effectué il y'a plus de:</InputLabel>
                                     <TextField
                                          sx={{
                                             minWidth:"200px"
                                         }}
                                         type= "number"
                                         variant="standard"
-                                        label="/semaine"
+                                        label="/Semaine"
                                         defaultValue={typeof(answers.last_donation) != "undefined" ? answers.last_donation:""}
                                         value={typeof(answers.last_donation) != "undefined" ? answers.last_donation:""}
                                         onChange={e=>{
@@ -404,7 +453,7 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                             </FormGroup >
 
                                 <FormGroup row={true} sx={{backgroundColor:'rgb(154, 196, 237,0.1)',p:1}}>
-                                    <InputLabel sx={{m:2,marginTop:"30px",color:"rgb(88,92,89)"}} id="year">Nombre de don par an:</InputLabel>
+                                    <InputLabel sx={{m:2,marginTop:"30px",color:"rgb(88,92,89)"}} id="year">Nombre de dons effectués durant la derniere année:</InputLabel>
                                     <TextField
                                      sx={{
                                          minWidth:"200px"
@@ -412,7 +461,7 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                                      type="number" 
                                      
                                     
-                                     label="/an"
+                                     label="/An"
                                      variant="standard"
                                   
                                      defaultValue={typeof(answers.number_of_donations) != "undefined" ? answers.number_of_donations:""}
@@ -433,7 +482,14 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                     </RadioGroup>
                     {
                     (typeof(error.have_donated) != "undefined")?
-                        <p style={{paddingBottom:"10px",color:"rgb(216,47,47)"}}>{error.have_donated}</p>
+                        <p style={{
+                            fontWeight:"400" ,
+                            fontSize: "0.75rem",
+                            fontFamily: `"Roboto","Helvetica","Arial",sans-serif`,
+                            paddingBottom:"10px",color:"#d32f2f"
+                        }}>
+                            {error.have_donated}
+                        </p>
                     :
                         ""
                      }

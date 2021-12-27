@@ -17,7 +17,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import Button from '@mui/material/Button';
 
 
-const Personalinfo = ({info, setInfo,error})=>{
+const Personalinfo = ({info, setInfo,error,setError})=>{
     
 
 
@@ -36,7 +36,7 @@ const Personalinfo = ({info, setInfo,error})=>{
                 autoComplete="off"
                 >
                   
-                    <h1 style={{textAlign:"center",marginBottom:"60px",height:"50px",color:"rgb(79, 78, 78,0.9", backgroundColor:"rgb(143, 199, 255,0.2)"}}>Information personnelles</h1>
+                    <h1 style={{textAlign:"center",marginBottom:"60px",height:"50px",color:"rgb(79, 78, 78,0.9", backgroundColor:"rgb(143, 199, 255,0.2)"}}>Informations personnelles</h1>
                <Box
                    sx={{width:"100%",display:"flex",flexDirection:"row",justifyContent:"space-between"}}
                >
@@ -47,33 +47,24 @@ const Personalinfo = ({info, setInfo,error})=>{
                         <TextField 
 
                        
-                        type="number" 
-                        onChange={(e)=>setInfo({...info,donor_id:e.target.value >=0 ? e.target.value : 0 })}
+                     
+                        onChange={(e)=>{
+                            setInfo({...info,donor_id: e.target.value })
+                            let tmp={...error}
+                            delete tmp["donor_id"]
+                            setError(tmp);
+                        }}
                         defaultValue={typeof(info.donor_id) != "undefined" ?info.donor_id:null}
                         value={typeof(info.donor_id) != "undefined" ?info.donor_id:null}
                         id="donor_id"
                         label="Donneur ID"
                         variant="outlined"
                         required
+                        error={  typeof(error.donor_id) != "undefined" && error.donor_id}
+                        helperText={ typeof(error.donor_id) != "undefined"  &&  error.donor_id? error.donor_id : ' '}
                     />
                 </Box>
-                <Box
-                    sx={{width:"407px"}}
-                >
-                    
-                        <TextField 
-
-                       
-                        type="number" 
-                        onChange={(e)=>setInfo({...info,weight:e.target.value >=0 ? e.target.value : 0 })}
-                        defaultValue={typeof(info.weight) != "undefined" ?info.weight:null}
-                        value={typeof(info.weight) != "undefined" ?info.weight:null}
-                        id="weight"
-                        label="Poids"
-                        variant="outlined"
-                        required
-                    />
-                </Box>
+               
                 </Box>
                 <Box sx={{
                     display:'flex',
@@ -89,7 +80,12 @@ const Personalinfo = ({info, setInfo,error})=>{
                         defaultValue={info.lname}
                         label="Nom" 
                         variant="standard" 
-                        onChange={(e)=> setInfo({...info, lname:e.target.value})}
+                        onChange={(e)=>{ 
+                            setInfo({...info, lname:e.target.value})
+                            let tmp={...error}
+                            delete tmp["lname"]
+                            setError(tmp);
+                        }}
                         required
                         
                         error={error.lname && typeof(error) != "undefined" }
@@ -102,7 +98,12 @@ const Personalinfo = ({info, setInfo,error})=>{
                         defaultValue={info.fname}
                         label="Prenom" 
                         variant="standard" 
-                        onChange={(e)=> setInfo({...info, fname:e.target.value})}
+                        onChange={(e)=> {
+                            setInfo({...info, fname:e.target.value})
+                            let tmp={...error}
+                            delete tmp["fname"]
+                            setError(tmp);
+                        }}
                         required
                         error={error.fname && typeof(error) != "undefined"}
                         helperText={error.fname && typeof(error) != "undefined" ? error.fname : ' '}
@@ -117,7 +118,12 @@ const Personalinfo = ({info, setInfo,error})=>{
                   >Sexe</FormLabel>
                     <RadioGroup row aria-label="gender" 
                      
-                     onChange={e => {setInfo({...info, sex:e.target.value })}} 
+                     onChange={e => {
+                         setInfo({...info, sex:e.target.value })
+                         let tmp={...error}
+                            delete tmp["sex"]
+                            setError(tmp);
+                        }} 
                      name="row-radio-buttons-group"
                      defaultValue={info.sex}
                      error={true}
@@ -138,6 +144,30 @@ const Personalinfo = ({info, setInfo,error})=>{
                         ""
                     }
                 </FormControl>
+              
+                  
+                        <TextField 
+
+                       
+                        type="number" 
+                        onChange={(e)=>{
+                            setInfo({...info,weight:e.target.value >=0 ? e.target.value : 0 })
+                            let tmp={...error}
+                            delete tmp["weight"]
+                            setError(tmp);
+                        }}
+                        defaultValue={typeof(info.weight) != "undefined" ?info.weight:null}
+                        value={typeof(info.weight) != "undefined" ?info.weight:null}
+                        id="weight"
+                        label="Poids"
+                        variant="outlined"
+                        required
+                        error={  typeof(error.weight) != "undefined" && error.weight}
+                        helperText={ typeof(error.weight) != "undefined"  &&  error.weight? error.weight : ' '}
+                    />
+                   
+              
+                   
                 <FormGroup >
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
          
@@ -147,7 +177,12 @@ const Personalinfo = ({info, setInfo,error})=>{
                             sx={{'&>':{marginRight:"0px"}}}
                             inputFormat="dd/MM/yyyy"
                             value={info.birthdate}
-                            onChange={(e)=> setInfo({...info,birthdate:new Date(e)})}
+                            onChange={(e)=> {
+                                setInfo({...info,birthdate:new Date(e)})
+                                let tmp={...error}
+                                delete tmp["birthdate"]
+                                setError(tmp);
+                            }}
                             defaultValue={info.birthdate}
                             renderInput={(params) => <TextField  label="Date de naissance" {...params} 
                             required 
@@ -158,7 +193,8 @@ const Personalinfo = ({info, setInfo,error})=>{
               
                 </LocalizationProvider>
                 </FormGroup>
-                   
+
+                
                 
                     
                     <TextField 

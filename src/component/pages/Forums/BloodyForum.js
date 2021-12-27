@@ -24,7 +24,7 @@ import {
 
 const BloodyForum = ()=>{
   const [person,setPerson] =React.useState({});
-  const steps = ["Informations","Questionnaire","Maladies","Médicaments","Comportement à risque","exploration fctl","chirurgie","vaccins"]
+  const steps = ["Informations","Questionnaire","Maladies","Médicaments","Comportement à risque","Exploration fctl","Chirurgie","Vaccins"]
   const handleClickButton=()=>{
     axios.post('http://127.0.0.1:8000/api/people',info)
     .then(res=>{
@@ -115,8 +115,8 @@ const BloodyForum = ()=>{
               if(!res.data.data.isAble)
               {
                 Swal.fire({
-                  title:"Contre indication définitive.",
-                  html:`${res.data.data.result} <br/> ${res.data.data.volume != null ?res.data.data.volume : ""} <br/> ${res.data.data.comment}`,
+                  title:"Contre indication défiSnitive.",
+                  html:`<h5 style='color:rgb(99, 99, 98)'>`+`${res.data.data.result != null?res.data.data.result:"" }` +` </br>` +` ${res.data.data.volume != null?res.data.data.volume:""}`+ `</br>` +`${res.data.data.comment != null ? res.data.data.comment : ""}` +`</h5>`,
                   icon:"error",
                   showConfirmButton:true,
                   confirmButtonText:"OK",
@@ -187,7 +187,23 @@ const BloodyForum = ()=>{
         }
       
         case 2:{
-          setActivestep((activeStep)=> activeStep+1);
+          
+            quest.first_qest == "oui"?
+             Swal.fire({
+                 title:" Contre indication définitive",
+                 text:"Le donneur ne se sens pas enforme ",
+                 icon:"error",
+                 showConfirmButton:true,
+                 confirmButtonText:"OK",
+                 confirmButtonColor:"#1976D2",
+                 
+             })
+           
+        
+           
+            :
+            setActivestep((activeStep)=> activeStep+1);
+        
           break;
         }
      
@@ -212,7 +228,7 @@ const BloodyForum = ()=>{
             .then(res=>
             {
               setLoading(false);
-              setResult((result) => res.data.data.results);
+              setResult((result) => res.data.data.results.results);
              
               setActivestep((activeStep)=> activeStep+1);
               console.log(res.data);
@@ -252,7 +268,10 @@ const BloodyForum = ()=>{
     const [loading,setLoading]=React.useState(false);
     const [postData,setPostData]= React.useState([]);
     const [activeStep,setActivestep]=React.useState(0);
- 
+    const [quest,setQuest] = React.useState({
+      first_qest:"",
+      sec_qest:""
+    })
     const [info, setInfo] = React.useState({
       fname:'',
       lname: '',
@@ -293,7 +312,9 @@ const BloodyForum = ()=>{
           return <Personalinfo 
           error={error} 
           info={info} 
-          setInfo={setInfo} />
+          setInfo={setInfo} 
+          setError={setError}
+          />
 
         case 1:
           return <Questions
@@ -314,7 +335,10 @@ const BloodyForum = ()=>{
           return <Maladies 
             parents={parents}
             maladies={maladies} 
-            setMaladies={setMaladies} />
+            setMaladies={setMaladies}
+            quest={quest}
+            setQuest={setQuest}
+            />
         
         case 3:return <Medicament 
             parents={parents}
@@ -350,7 +374,7 @@ const BloodyForum = ()=>{
         setInfo={setInfo}
         setActivestep={setActivestep}
         setMaladies={setMaladies}
-     
+        setQuest={setQuest}
         handleClick={handleClick}
         handleClickButton={handleClickButton}
         />
