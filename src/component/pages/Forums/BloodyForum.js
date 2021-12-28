@@ -81,16 +81,21 @@ const BloodyForum = ()=>{
       switch(activeStep)
       {
         case 0: {
+         
+          setLoading(true)
           axios.post('http://127.0.0.1:8000/api/people/validate',info)
           .then(res=>
             {
              
               setActivestep((activeStep)=> activeStep+1);
              
+              document.body.scrollTop = 0;
+              document.documentElement.scrollTop = 0;
               
           })
           .catch(err =>
             {
+              setLoading(false);
           
               let errors=[];
               if(err.response.status == 422)
@@ -108,10 +113,10 @@ const BloodyForum = ()=>{
         }
         case 1: {
         
+          setLoading(true)
           axios.post('http://127.0.0.1:8000/api/people/check-donation', info)
           .then(res=>
             {
-              
               if(!res.data.data.isAble)
               {
                 Swal.fire({
@@ -161,16 +166,18 @@ const BloodyForum = ()=>{
               .then(res=>
               {
                
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
                 setParents((parents) => res.data.data)
-                setLoading(false);
                 setActivestep((activeStep)=> activeStep+1);
                 console.log(res.data.data);
               })
-              .catch(err =>console.log(err))
+              .catch(err => setLoading(false))
             })
             .catch(err=>{
             
              
+          setLoading(false)
               if(err.response.status == 422)
               {
                   let errors = {...error}
@@ -188,10 +195,9 @@ const BloodyForum = ()=>{
       
         case 2:{
           
-            quest.first_qest == "oui"?
+            quest.first_qest == "non"?
              Swal.fire({
                  title:" Contre indication définitive",
-                 text:"Le donneur ne se sens pas enforme ",
                  icon:"error",
                  showConfirmButton:true,
                  confirmButtonText:"OK",
@@ -203,7 +209,9 @@ const BloodyForum = ()=>{
            
             :
             setActivestep((activeStep)=> activeStep+1);
-        
+            
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
           break;
         }
      
@@ -227,31 +235,45 @@ const BloodyForum = ()=>{
             axios.post('http://127.0.0.1:8000/api/people/check',local_info)
             .then(res=>
             {
-              setLoading(false);
               setResult((result) => res.data.data.results.results);
              
+              document.body.scrollTop = 0;
+              document.documentElement.scrollTop = 0;
               setActivestep((activeStep)=> activeStep+1);
               console.log(res.data);
              
             
             
             })
-            .catch(err =>console.log(err))
+            .catch(err => {
+             
+              setLoading(false)
+              console.log(err)
+            })
            
            
            
            break;
           }
           case 4:{setActivestep((activeStep)=> activeStep+1);
+            
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
            break;
             }
           case 5:{setActivestep((activeStep)=> activeStep+1);
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
            break;
           }
           case 6:{setActivestep((activeStep)=> activeStep+1);
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
             break;
             }
           case 7:{setActivestep((activeStep)=> activeStep+1);
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
             break;
               }
           case 8:{setActivestep((activeStep)=> activeStep+1);
@@ -262,7 +284,7 @@ const BloodyForum = ()=>{
     
 
     }
-
+    
     const [value,setValue]= React.useState({});
     const[donorTypeValue,setDonorTypeValue] = React.useState({})
     const [loading,setLoading]=React.useState(false);
@@ -306,6 +328,13 @@ const BloodyForum = ()=>{
     
     const [checked,setChecked]=React.useState(false);
     const [valueChecked,setValueChecked] = React.useState(false);
+    
+    
+    React.useEffect(() => 
+    {
+       setLoading(false);
+    }, [activeStep])
+    
     const renderSwitch =(steps)=>{
       switch(steps){
         case 0:
@@ -439,6 +468,7 @@ const BloodyForum = ()=>{
                 goNext={goNext}
                 setActivestep={setActivestep}
                 loading={loading}
+                error={error}
               />
             }
           />

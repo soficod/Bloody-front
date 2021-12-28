@@ -353,7 +353,7 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                     
                     >
                     <FormControlLabel 
-                            value="Fix" 
+                            value="fix" 
                             
                             control={<Radio />} 
                             label="Fixe(in situ)"

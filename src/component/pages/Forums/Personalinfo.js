@@ -40,6 +40,7 @@ const Personalinfo = ({info, setInfo,error,setError})=>{
                <Box
                    sx={{width:"100%",display:"flex",flexDirection:"row",justifyContent:"space-between"}}
                >
+                 
                 <Box
                     sx={{width:"300px"}}
                 >

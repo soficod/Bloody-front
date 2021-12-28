@@ -15,6 +15,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import IconButton from '@mui/material/IconButton';
 import CollapsibleTable from './CollapsibleTable';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -38,24 +39,30 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 const DashBoard =()=>{
       const [person,setPerson] = React.useState([]);
       const [open, setOpen] = React.useState(false);
-      useEffect(()=>{
+      
+      const  [loading, setLoading] = React.useState(true);
+       useEffect(()=>{
         axios.get("http://127.0.0.1:8000/api/people/")
         .then(res=>{
             setPerson(res.data.data)
             console.log(res.data.data)
+            setLoading(false);
             
         })
-        .catch(err=>{console.log(err)})
+        .catch(err=>{setLoading(false); console.log(err)})
       },[]);
     
     return(
     
         <>
        
-
-    
+         
+          {
+            loading ? 
+            <CircularProgress style={{marginTop: "60px"}}/>
+            :
             <CollapsibleTable data={person}/>
-       
+          }
             <PieChart width={400} height={400}>
                 <Pie
                     data={person}

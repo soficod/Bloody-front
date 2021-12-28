@@ -92,8 +92,8 @@ function Row(props) {
                   <StyledDonationRow>
                     <StyledDonationCell>Type de don</StyledDonationCell>
                     <StyledDonationCell>Type de donneur </StyledDonationCell>
-                    <StyledDonationCell >site</StyledDonationCell>
-                    <StyledDonationCell >Date</StyledDonationCell>
+                    <StyledDonationCell >Site</StyledDonationCell>
+                    <StyledDonationCell >Date et heure</StyledDonationCell>
                     { 
                       row.donations.donor_type == "family"&&
                       <>

@@ -12,7 +12,8 @@ const Form = ({
     steps,
     goNext,
     setActivestep,
-    loading
+    loading,
+    error
 }) => 
 {
     return(
@@ -31,6 +32,7 @@ const Form = ({
             </Box>
 
             <Box sx={{width:'100%',display: 'flex', flexDirection: 'row-reverse', pt:0 ,justifyContent:'space-between'}}>
+                
 
                 {
                 (activeStep==steps.length)?
@@ -41,13 +43,32 @@ const Form = ({
                     onClick={()=>{goNext()}}
 
                 >
-                Suivant</Button>
+                  Suivant
+                </Button>
+                 :
+                 (activeStep==0)? 
+                 <>
+                 {
+                    
+                     !loading ?
+                         <Button
+                             variant="contained" 
+                             sx={{ m: 5 }}
+                             onClick={()=>{goNext()}}
+ 
+                         >
+                         Suivant </Button>
+                         :
+                         <CircularProgress sx={{ m: 5 }}  />
+                 }
+               </>
+                
                 :
                
                 (activeStep==steps.length -1)?
                 <>
                 {
-                   !loading ?
+                    !loading ?
                     <Button
                         variant="contained" 
                         sx={{ m: 5 }}
@@ -61,17 +82,22 @@ const Form = ({
 
                 }
                 </>
-                :
-                <Button
-                    variant="contained" 
-                    sx={{ m: 5 }}
-                    onClick={()=>{
-                        goNext();
-                }}
-
-                >
-                   Suivant
-                </Button>
+                    :
+                    <>
+                    {
+                       
+                       !loading ?
+                           <Button
+                               variant="contained" 
+                               sx={{ m: 5 }}
+                               onClick={()=>{goNext()}}
+    
+                           >
+                           Suivant </Button>
+                           :
+                           <CircularProgress sx={{ m: 5 }}  />
+                   }
+                    </>
                 }
             
                 {
@@ -120,21 +146,45 @@ const Form = ({
                     >
                     Voir les Résultats </Button>
                     :
+                    Object.keys(error).length !== 0 &&
                     <CircularProgress sx={{ m: 5 }}  />
 
-
+                  
                 }
-                </>
+              </>
                 :
-                <Button
-                variant="contained" 
-                sx={{ m: 5 }}
-                onClick={()=>{
-                    goNext();
-                }}
+                (activeStep==0)? 
+                <>
+                {
+                   
+                    !loading ?
+                        <Button
+                            variant="contained" 
+                            sx={{ m: 5 }}
+                            onClick={()=>{goNext()}}
 
-                >
-                    Suivant </Button>
+                        >
+                        Suivant </Button>
+                        :
+                        <CircularProgress sx={{ m: 5 }}  />
+                }
+              </>
+                :
+                <>
+                {
+                   
+                   !loading ?
+                       <Button
+                           variant="contained" 
+                           sx={{ m: 5 }}
+                           onClick={()=>{goNext()}}
+
+                       >
+                       Suivant </Button>
+                       :
+                       <CircularProgress sx={{ m: 5 }}  />
+               }
+                </>
             }
 
 
@@ -146,14 +196,24 @@ const Form = ({
                 variant="contained"
                 sx={{ display:"none",m: 5 }}
                 disabled={activeStep === 7}
-                onClick={()=>{setActivestep((activeStep)=> activeStep-1)}}
+                onClick={()=>{
+                    console.log("bruh")
+                    document.body.scrollTop = 0;
+                    document.documentElement.scrollTop = 0;
+                    setActivestep((activeStep)=> activeStep-1)
+                }}
                 >Précédent </Button>
                 :
                 <Button
                 variant="contained"
                 sx={{ m: 5 }}
                 disabled={activeStep === 0}
-                onClick={()=>{setActivestep((activeStep)=> activeStep-1)}}
+                onClick={()=>{
+                    console.log("bruh")
+                    document.body.scrollTop = 0;
+                    document.documentElement.scrollTop = 0;
+                    setActivestep((activeStep)=> activeStep-1)
+                }}
                 >Précédent </Button>
             }
             
