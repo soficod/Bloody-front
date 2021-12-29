@@ -283,7 +283,7 @@ const BloodyForum = ()=>{
             }
           case 7:{ 
             const arr_maladies = [];
-            console.log(maladies)
+         
             Object.keys(maladies).forEach(key => 
             {
               for(let id of maladies[key])
@@ -302,10 +302,11 @@ const BloodyForum = ()=>{
             {
               setResult((result) => res.data.data.results.results);
               setSubResult((result=>res.data.data.results));
+              console.log(res)
               document.body.scrollTop = 0;
               document.documentElement.scrollTop = 0;
               setActivestep((activeStep)=> activeStep+1);
-              console.log(res.data);
+            
              
             
             
@@ -313,7 +314,7 @@ const BloodyForum = ()=>{
             .catch(err => {
              
               setLoading(false)
-              console.log(err)
+             
             })
            
             break;

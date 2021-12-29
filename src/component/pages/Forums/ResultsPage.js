@@ -210,20 +210,27 @@ const ResultsPage = ({subResult,setQuest,person,setPerson,info,setChecked,result
                     
                 </tr>
                 {
-                    subResult.comment&&
+                    subResult.volume !== null?
                     <>
                      <tr>
                     <th style={{paddingBottom:"30px",color:"#403e3e"}}>Volume à prélever</th>
                     <td style={{paddingBottom:"30px",color:"#696666"}}>{subResult.volume}</td>
                     
-                </tr>
+                         </tr>
+                </>
+                : 
+                ""
+                }
+                {
 
+                subResult.comment !== null &&
+                <>
                 <tr>
                     <th style={{paddingBottom:"30px",color:"#403e3e"}}>Remarque </th>
                     <td style={{paddingBottom:"30px",color:"#696666"}}>{subResult.comment}</td>
                     
                 </tr>
-                    </>
+                </>  
                 }
                
             </table>
