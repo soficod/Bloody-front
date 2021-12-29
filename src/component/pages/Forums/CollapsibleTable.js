@@ -90,22 +90,21 @@ function Row(props) {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <StyledDonationRow>
+                 
                     <StyledDonationCell>Type de don</StyledDonationCell>
                     <StyledDonationCell>Type de donneur </StyledDonationCell>
                     <StyledDonationCell >Site</StyledDonationCell>
                     <StyledDonationCell >Date et heure</StyledDonationCell>
-                    { 
-                      row.donations.donor_type == "family"&&
-                      <>
-                      
-                      <StyledDonationCell align="right">Nom</StyledDonationCell>
-                      <StyledDonationCell align="right">Prénom</StyledDonationCell>
-                      <StyledDonationCell align="right">Clinique</StyledDonationCell>
-                      <StyledDonationCell align="right">Service</StyledDonationCell>
-                     
-
-                      </>
-
+                    {
+                      row.donations.map((donationRow)=>(
+                        donationRow.patient_fname != null &&
+                        <>
+                              <StyledDonationCell key={donationRow.id}>Nom du malade</StyledDonationCell>
+                              <StyledDonationCell key={donationRow.id}>Prénom du malade </StyledDonationCell>
+                              <StyledDonationCell key={donationRow.id}>Service</StyledDonationCell>
+                              <StyledDonationCell key={donationRow.id}>Clinique</StyledDonationCell>
+                        </>
+                      ))
                     }
              
                   </StyledDonationRow>
@@ -116,16 +115,17 @@ function Row(props) {
                       <StyledTableCell component="th" scope="row">
                         {donationRow.donation_type}
                       </StyledTableCell>
-                      <StyledTableCell>{donationRow.donor_type}</StyledTableCell>
-                      <StyledTableCell >{donationRow.site}</StyledTableCell>
+                      <StyledTableCell>{donationRow.donor_type == "regular"?"Régulier":donationRow.donor_type == "irregular"?"Irrégulier": "Famille"}</StyledTableCell>
+                      <StyledTableCell >{donationRow.site=="fix"?"Fixe":donationRow.site=="mobile"? "Mobile":""}</StyledTableCell>
                       <StyledTableCell >{donationRow.created_at}</StyledTableCell>
+                      
                       {
-                        donationRow == "family"&&
+                        donationRow.patient_fname != null &&
                         <>
                         <StyledTableCell >{donationRow.patient_lname}</StyledTableCell>
                         <StyledTableCell >{donationRow.patient_fname}</StyledTableCell>
-                        <StyledTableCell >{donationRow.clinic}</StyledTableCell>
-                        <StyledTableCell >{donationRow.service}</StyledTableCell>
+                        <StyledTableCell >{donationRow.patient_service}</StyledTableCell>
+                        <StyledTableCell >{donationRow.patient_clinic}</StyledTableCell>
                         </>
                       }
                       

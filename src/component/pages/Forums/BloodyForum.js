@@ -24,7 +24,7 @@ import {
 
 const BloodyForum = ()=>{
   const [person,setPerson] =React.useState({});
-  const steps = ["Informations","Questionnaire","Maladies","Médicaments","Comportement à risque","Exploration fctl","Chirurgie","Vaccins"]
+  const steps = ["Informations","Questionnaire","Maladies","Médicaments","Comportement à risque","Exploration fonctionnelle","Chirurgie","Vaccins"]
   const handleClickButton=()=>{
     axios.post('http://127.0.0.1:8000/api/people',info)
     .then(res=>{
@@ -120,7 +120,7 @@ const BloodyForum = ()=>{
               if(!res.data.data.isAble)
               {
                 Swal.fire({
-                  title:"Contre indication défiSnitive.",
+                  title:"Contre indication définitive.",
                   html:`<h5 style='color:rgb(99, 99, 98)'>`+`${res.data.data.result != null?res.data.data.result:"" }` +` </br>` +` ${res.data.data.volume != null?res.data.data.volume:""}`+ `</br>` +`${res.data.data.comment != null ? res.data.data.comment : ""}` +`</h5>`,
                   icon:"error",
                   showConfirmButton:true,
@@ -198,12 +198,55 @@ const BloodyForum = ()=>{
             quest.first_qest == "non"?
              Swal.fire({
                  title:" Contre indication définitive",
+                 html:`<h5 style='color:rgb(99, 99, 98)'>Le patient ne se sent pas en forme pour donner son sang.</h5>`,
                  icon:"error",
                  showConfirmButton:true,
                  confirmButtonText:"OK",
-                 confirmButtonColor:"#1976D2",
+                 confirmButtonColor:"#1976D2"
+                 
                  
              })
+             .then((res) => {
+              
+                setInfo({
+                    fname:'',
+                    lname: '',
+                    sex: '',
+                    address:'',
+                    phone: '',
+                    birthdate:new Date(''),
+                    email:'',
+                    weight:null,
+                    answers:[]
+                   
+
+                  })
+                  setActivestep(0);
+                  setMaladies({});
+                  setError({
+                    fname:'',
+                    lname:'',
+                    sex: '',
+                    address:'',
+                    email:'',
+                    phone:'',
+                    birthdate:'',
+                   
+             
+                
+                  });
+                  setValue({});
+                  setChecked(false);
+                  setQuest(
+                      {
+                          first_qest:"",
+                          sec_qest:""
+                      }
+                  )
+              
+            
+           
+          })
            
         
            
@@ -217,6 +260,28 @@ const BloodyForum = ()=>{
      
         case 3:{
             
+          setActivestep((activeStep)=> activeStep+1);
+  
+        
+           break;
+          }
+          case 4:{setActivestep((activeStep)=> activeStep+1);
+            
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+           break;
+            }
+          case 5:{setActivestep((activeStep)=> activeStep+1);
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+           break;
+          }
+          case 6:{setActivestep((activeStep)=> activeStep+1);
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+            break;
+            }
+          case 7:{ 
             const arr_maladies = [];
             console.log(maladies)
             Object.keys(maladies).forEach(key => 
@@ -236,7 +301,7 @@ const BloodyForum = ()=>{
             .then(res=>
             {
               setResult((result) => res.data.data.results.results);
-             
+              setSubResult((result=>res.data.data.results));
               document.body.scrollTop = 0;
               document.documentElement.scrollTop = 0;
               setActivestep((activeStep)=> activeStep+1);
@@ -251,29 +316,6 @@ const BloodyForum = ()=>{
               console.log(err)
             })
            
-           
-           
-           break;
-          }
-          case 4:{setActivestep((activeStep)=> activeStep+1);
-            
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-           break;
-            }
-          case 5:{setActivestep((activeStep)=> activeStep+1);
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-           break;
-          }
-          case 6:{setActivestep((activeStep)=> activeStep+1);
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-            break;
-            }
-          case 7:{setActivestep((activeStep)=> activeStep+1);
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
             break;
               }
           case 8:{setActivestep((activeStep)=> activeStep+1);
@@ -323,6 +365,7 @@ const BloodyForum = ()=>{
   
     
     const[result,setResult]=React.useState([])
+    const[subResult,setSubResult]=React.useState([])
     const [parents,setParents]= React.useState([])
    
     
@@ -406,6 +449,8 @@ const BloodyForum = ()=>{
         setQuest={setQuest}
         handleClick={handleClick}
         handleClickButton={handleClickButton}
+        subResult = {subResult}
+        setSubResult = {setSubResult}
         />
     
       }

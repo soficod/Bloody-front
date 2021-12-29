@@ -20,8 +20,9 @@ import axios from 'axios';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import SaveIcon from '@mui/icons-material/Save';
 import BloodtypeIcon from '@mui/icons-material/Bloodtype';
-
-const ResultsPage = ({setQuest,person,setPerson,info,setChecked,result,setInfo,setActivestep, setMaladies,setError,setValue})=>{
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
+import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
+const ResultsPage = ({subResult,setQuest,person,setPerson,info,setChecked,result,setInfo,setActivestep, setMaladies,setError,setValue})=>{
 
     
     const handleQuitter=()=>{
@@ -168,7 +169,7 @@ const ResultsPage = ({setQuest,person,setPerson,info,setChecked,result,setInfo,s
                 border:"1px solid #F5F9FD",
                 backgroundColor:"#F5F9FD",
                 paddingTop: "30px",
-                paddingLeft: "10px"
+                paddingLeft: "20px"
                 
             }}>
                 <tr>
@@ -186,9 +187,45 @@ const ResultsPage = ({setQuest,person,setPerson,info,setChecked,result,setInfo,s
                 </tr>
                 <tr>
                     <th style={{paddingBottom:"30px",color:"#403e3e"}}>Type de don</th>
-                    <td style={{paddingBottom:"30px",color:"#696666"}}>{info.donation_type}</td>
+                    <td style={{paddingBottom:"30px",color:"#696666"}}>{
+                    info.donation_type=="blood"?
+                    "Sang total"
+                    :
+                    info.donation_type=="white"?
+                    "Globules blancs"
+                    :
+                    info.donation_type=="red"?
+                    "Globules rouges"
+                    :
+                    info.donation_type=="platelets"?
+                    "Plaquettes"
+                    :
+                    info.donation_type =="plasma"?
+                    "Plasma"
+                    :
+                    ""
+                    
+                    
+                    }</td>
                     
                 </tr>
+                {
+                    subResult.comment&&
+                    <>
+                     <tr>
+                    <th style={{paddingBottom:"30px",color:"#403e3e"}}>Volume à prélever</th>
+                    <td style={{paddingBottom:"30px",color:"#696666"}}>{subResult.volume}</td>
+                    
+                </tr>
+
+                <tr>
+                    <th style={{paddingBottom:"30px",color:"#403e3e"}}>Remarque </th>
+                    <td style={{paddingBottom:"30px",color:"#696666"}}>{subResult.comment}</td>
+                    
+                </tr>
+                    </>
+                }
+               
             </table>
 
                  
@@ -271,7 +308,9 @@ const ResultsPage = ({setQuest,person,setPerson,info,setChecked,result,setInfo,s
                     :
                     null
                 }
-             
+             <Box>
+    
+               </Box>
             </Box>
             {
                    typeof(result) != "undefined" && result.length ==0 || typeof(result) != "undefined" && (!result.filter(r => r.result === "cid").length > 0) ?
@@ -347,7 +386,7 @@ const ResultsPage = ({setQuest,person,setPerson,info,setChecked,result,setInfo,s
                 </Button>
 
             }
-            
+               
             </Box>
         
         </>

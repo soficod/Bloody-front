@@ -39,7 +39,7 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
         delete smp["patient_service"];
         delete smp["patient_clinic"];
         setAnswers(smp);
-        console.log(smp);
+      
 
        
     }
@@ -353,7 +353,7 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                     
                     >
                     <FormControlLabel 
-                            value="fix" 
+                            value="fixed" 
                             
                             control={<Radio />} 
                             label="Fixe(in situ)"
@@ -495,11 +495,12 @@ const Questions = ({answers,setAnswers,error,setError,checked,setChecked,valueCh
                      }
                 </FormGroup>
 
-        
+          
         
             </Box>
          </Box>
         </Box>
+          
     )
 
 }
