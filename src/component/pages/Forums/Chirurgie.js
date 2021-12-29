@@ -55,7 +55,7 @@ return(
             <InputBase
                 onChange={e=>setSearch(e.target.value)}
                 sx={{width:"70%", ml:0 , flex: 1 }}
-                placeholder="Chercher Maladies"
+                placeholder="Chercher..."
                 inputProps={{ 'aria-label': 'search google maps' }}
             />
            
