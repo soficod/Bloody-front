@@ -26,7 +26,7 @@ const BloodyForum = ()=>{
   const [person,setPerson] =React.useState({});
   const steps = ["Informations","Questionnaire","Maladies","Médicaments","Comportement à risque","Exploration fonctionnelle","Chirurgie","Vaccins"]
   const handleClickButton=()=>{
-    axios.post('http://127.0.0.1:8000/api/people',info)
+    axios.post('http://151.80.155.119:8000/api/people',info)
     .then(res=>{
         Swal.fire({
             title:"Prise de sang effectuée avec succés",
@@ -53,7 +53,7 @@ const BloodyForum = ()=>{
 }
 
   const handleClick=()=>{
-    axios.post('http://127.0.0.1:8000/api/people/donate',info)
+    axios.post('http://151.80.155.119:8000/api/people/donate',info)
     .then(res=>{
 
         Swal.fire({
@@ -83,7 +83,7 @@ const BloodyForum = ()=>{
         case 0: {
          
           setLoading(true)
-          axios.post('http://127.0.0.1:8000/api/people/validate',info)
+          axios.post('http://151.80.155.119:8000/api/people/validate',info)
           .then(res=>
             {
              
@@ -114,7 +114,7 @@ const BloodyForum = ()=>{
         case 1: {
         
           setLoading(true)
-          axios.post('http://127.0.0.1:8000/api/people/check-donation', info)
+          axios.post('http://151.80.155.119:8000/api/people/check-donation', info)
           .then(res=>
             {
               if(!res.data.data.isAble)
@@ -162,7 +162,7 @@ const BloodyForum = ()=>{
                 return;
               }
            
-              axios.get('http://127.0.0.1:8000/api/points')
+              axios.get('http://151.80.155.119:8000/api/points')
               .then(res=>
               {
                
@@ -297,7 +297,7 @@ const BloodyForum = ()=>{
             let local_info = {...info, answers:arr_maladies}; 
             setInfo({...info, answers:arr_maladies});
             setLoading(true)    
-            axios.post('http://127.0.0.1:8000/api/people/check',local_info)
+            axios.post('http://151.80.155.119:8000/api/people/check',local_info)
             .then(res=>
             {
               setResult((result) => res.data.data.results.results);

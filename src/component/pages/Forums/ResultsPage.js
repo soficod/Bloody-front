@@ -79,7 +79,7 @@ const ResultsPage = ({subResult,setQuest,person,setPerson,info,setChecked,result
           })
  }
     const handleClickButton=()=>{
-        axios.post('http://127.0.0.1:8000/api/people',info)
+        axios.post('http://151.80.155.119:8000/api/people',info)
         .then(res=>{
             Swal.fire({
                 title:"Donneur enregistré avec succés",
@@ -105,7 +105,7 @@ const ResultsPage = ({subResult,setQuest,person,setPerson,info,setChecked,result
     }
 
     const handleClick=()=>{
-        axios.post('http://127.0.0.1:8000/api/people/donate',info)
+        axios.post('http://151.80.155.119:8000/api/people/donate',info)
         .then(res=>{
 
             Swal.fire({

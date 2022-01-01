@@ -42,7 +42,7 @@ const DashBoard =()=>{
       
       const  [loading, setLoading] = React.useState(true);
        useEffect(()=>{
-        axios.get("http://127.0.0.1:8000/api/people/")
+        axios.get("http://151.80.155.119:8000/api/people/")
         .then(res=>{
             setPerson(res.data.data)
             console.log(res.data.data)
